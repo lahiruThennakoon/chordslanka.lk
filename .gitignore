@@ -1,0 +1,9 @@
+# Ingestion spike source material. Scanned sheets are working input, not
+# repository content, and their rights position is unresolved (PRD §13.1).
+_ingestion-samples/*
+!_ingestion-samples/README.md
+
+# Python tooling used by the BMad scripts
+.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chordslanka.lk — a facilitated session, 27 September 2026</title>
+<meta name="description" content="A record of one facilitated brainstorming session for chordslanka.lk. Twenty-five techniques, one question at a time. Every idea belongs to the founder.">
+<style>
+/* ────────────────────────────────────────────────────────────
+   chordslanka.lk — session keepsake
+   dark room, one lamp, a guitar, and 5000 scanned sheets
+   ──────────────────────────────────────────────────────────── */
+
+:root{
+  --ink:#0a0908;
+  --ink-2:#12100e;
+  --ink-3:#1a1613;
+  --lamp:#f6a33c;
+  --lamp-hot:#ffd08a;
+  --lamp-dim:#a6702a;
+  --paper:#e9dfcb;
+  --paper-2:#ded2b9;
+  --paper-ink:#1d1814;
+  --paper-faint:#6b6055;
+  --cool:#8ec6d8;
+  --cool-dim:#3d6472;
+  --alarm:#ef5d43;
+  --leaf:#9dc47f;
+  --rule:rgba(246,163,60,.22);
+  --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Consolas","DejaVu Sans Mono","Courier New",monospace;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ink);
+  color:#e6ddcd;
+  font-family:var(--serif);
+  font-size:clamp(16px,.55vw + 14.4px,18px);
+  line-height:1.62;
+  -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
+/* the lamp, hanging above everything */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60vw 48vh at 50% -8vh, rgba(246,163,60,.20), rgba(246,163,60,0) 68%),
+    radial-gradient(90vw 70vh at 78% 18%, rgba(255,150,60,.07), rgba(0,0,0,0) 70%),
+    radial-gradient(70vw 60vh at 12% 72%, rgba(120,90,255,.05), rgba(0,0,0,0) 70%);
+}
+/* dust in the beam */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:var(--grain);
+  opacity:.05;mix-blend-mode:screen;
+}
+main,header,footer{position:relative;z-index:1}
+
+.wrap{width:min(1080px,92vw);margin-inline:auto}
+.narrow{width:min(760px,92vw);margin-inline:auto}
+
+a{color:var(--lamp-hot);text-decoration-color:rgba(255,208,138,.4);text-underline-offset:3px}
+h1,h2,h3,h4{line-height:1.15;margin:0 0 .5em;font-weight:600}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.25em}
+li{margin:0 0 .45em}
+strong{color:#fff4e2}
+em{color:var(--lamp-hot);font-style:italic}
+
+.kicker{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--lamp-dim);margin:0 0 .9em;
+}
+
+/* ── floating chord symbols ───────────────────────────────── */
+.chords{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.chords span{
+  position:absolute;font-family:var(--mono);color:rgba(246,163,60,.13);
+  font-size:clamp(1.4rem,4vw,3.2rem);letter-spacing:.02em;
+  text-shadow:0 0 24px rgba(246,163,60,.18);
+}
+
+/* ── masthead ─────────────────────────────────────────────── */
+.masthead{
+  padding:clamp(3.5rem,11vh,7rem) 0 clamp(2rem,6vh,3.5rem);
+  text-align:center;position:relative;
+  border-bottom:1px solid var(--rule);
+}
+.bulb{
+  width:2px;height:clamp(40px,7vh,84px);margin:0 auto .9rem;
+  background:linear-gradient(to bottom,rgba(246,163,60,0),rgba(246,163,60,.55));
+  position:relative;
+}
+.bulb::after{
+  content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);
+  width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,#fff1d4,#f6a33c 55%,#8a4d12);
+  box-shadow:0 0 28px 10px rgba(246,163,60,.34),0 0 90px 30px rgba(246,163,60,.13);
+}
+.masthead h1{
+  font-size:clamp(2.4rem,8vw,5.2rem);letter-spacing:-.02em;margin-top:1.6rem;
+  color:#fff6e8;text-shadow:0 2px 40px rgba(246,163,60,.28);
+}
+.masthead h1 .dot{color:var(--lamp)}
+.masthead .sub{
+  font-family:var(--sans);font-size:clamp(.95rem,2.4vw,1.15rem);
+  color:#c8b99f;max-width:38ch;margin:0 auto 1.6rem;
+}
+.stampline{
+  display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.stampline span{
+  border:1px solid var(--rule);border-radius:2px;padding:.35rem .6rem;color:var(--lamp-dim);
+}
+
+/* ── the oath / framing ───────────────────────────────────── */
+.oath{
+  margin:clamp(2.5rem,7vh,4.5rem) auto;padding:clamp(1.4rem,4vw,2.4rem);
+  border-left:3px solid var(--lamp);background:linear-gradient(90deg,rgba(246,163,60,.09),rgba(246,163,60,0));
+}
+.oath p:last-child{margin-bottom:0}
+.oath .big{font-size:clamp(1.15rem,3vw,1.5rem);color:#fff3e2}
+
+/* ── generic paper card (a scan under the lamp) ───────────── */
+.paper{
+  background:
+    linear-gradient(105deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,.07) 100%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.018) 0 2px,rgba(0,0,0,0) 2px 4px),
+    linear-gradient(160deg,var(--paper),var(--paper-2));
+  color:var(--paper-ink);
+  padding:clamp(1.1rem,3vw,1.7rem);
+  border-radius:2px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.35) inset,
+    0 18px 38px -18px rgba(0,0,0,.85),
+    0 0 60px -22px rgba(246,163,60,.5);
+  position:relative;
+}
+.paper::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:2px;
+  background-image:var(--grain);opacity:.11;mix-blend-mode:multiply;
+}
+.paper h3,.paper h4{color:#120e0a}
+.paper .meta{color:var(--paper-faint);font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.paper strong{color:#000}
+.paper em{color:#7a4a11}
+.tilt-l{transform:rotate(-.55deg)}
+.tilt-r{transform:rotate(.6deg)}
+
+/* ── technique section shell ──────────────────────────────── */
+.tech{
+  padding:clamp(2.6rem,8vh,5rem) 0;
+  border-top:1px solid rgba(246,163,60,.12);
+  position:relative;
+}
+.tech-head{display:flex;gap:1rem;align-items:baseline;margin-bottom:1.4rem;flex-wrap:wrap}
+.tech-num{
+  font-family:var(--mono);font-size:.78rem;color:var(--ink);
+  background:var(--lamp);border-radius:2px;padding:.18rem .5rem;font-weight:700;
+  flex:none;
+}
+.tech-head h2{font-size:clamp(1.45rem,4.2vw,2.3rem);margin:0;color:#fff2de;letter-spacing:-.01em}
+.tech-head .q{
+  width:100%;font-family:var(--sans);font-size:.92rem;color:#a3937c;margin:.35rem 0 0;
+}
+.grid{display:grid;gap:1rem}
+@media(min-width:720px){
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+}
+
+/* labels for idea provenance */
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;padding:.2rem .45rem;border-radius:2px;margin:0 .35rem .35rem 0;
+}
+.tag-idea{background:rgba(246,163,60,.16);color:var(--lamp-hot);border:1px solid rgba(246,163,60,.35)}
+.tag-insight{background:rgba(157,196,127,.12);color:var(--leaf);border:1px solid rgba(157,196,127,.32)}
+.tag-decision{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.28)}
+.tag-question{background:rgba(142,198,216,.12);color:var(--cool);border:1px solid rgba(142,198,216,.3)}
+.tag-risk{background:rgba(239,93,67,.14);color:var(--alarm);border:1px solid rgba(239,93,67,.38)}
+
+.note{
+  border:1px solid rgba(157,196,127,.28);border-left:3px solid var(--leaf);
+  background:rgba(157,196,127,.05);padding:1rem 1.1rem;border-radius:2px;
+}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--leaf);display:block;margin-bottom:.4rem}
+
+.warnbox{
+  border:1px solid rgba(239,93,67,.35);border-left:3px solid var(--alarm);
+  background:rgba(239,93,67,.06);padding:1rem 1.1rem;border-radius:2px;
+}
+.warnbox .lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--alarm);display:block;margin-bottom:.4rem}
+
+/* ── index ────────────────────────────────────────────────── */
+.index{padding:clamp(2rem,6vh,3.5rem) 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.index ol{list-style:none;padding:0;display:grid;gap:.35rem;counter-reset:ix;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.index li{margin:0;counter-increment:ix}
+.index a{
+  display:flex;gap:.6rem;align-items:baseline;text-decoration:none;color:#bfae93;
+  font-family:var(--sans);font-size:.85rem;padding:.4rem .5rem;border-radius:2px;
+  border:1px solid transparent;
+}
+.index a::before{content:counter(ix,decimal-leading-zero);font-family:var(--mono);font-size:.7rem;color:var(--lamp-dim)}
+.index a:hover,.index a:focus{background:rgba(246,163,60,.09);border-color:var(--rule);color:#fff2de}
+
+/* ── product flow ─────────────────────────────────────────── */
+.flow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-family:var(--mono);font-size:.78rem}
+.node{
+  border:1px solid var(--rule);background:rgba(246,163,60,.07);color:var(--lamp-hot);
+  padding:.4rem .7rem;border-radius:2px;letter-spacing:.12em;
+}
+.node.hot{background:rgba(246,163,60,.2);color:#fff6e8;border-color:rgba(246,163,60,.6)}
+.arrow{color:var(--lamp-dim)}
+.branch{display:flex;flex-direction:column;gap:.4rem}
+
+/* ── 01 yes and ───────────────────────────────────────────── */
+.yesand{display:flex;flex-wrap:wrap;align-items:stretch;gap:0}
+.yesand .yes{
+  background:var(--lamp);color:#1a1005;font-family:var(--mono);font-weight:700;
+  letter-spacing:.2em;padding:1.2rem 1rem;display:flex;align-items:center;font-size:.9rem;
+}
+.yesand .and{
+  flex:1 1 300px;background:rgba(246,163,60,.08);border:1px solid var(--rule);border-left:none;
+  padding:1.2rem 1.3rem;font-size:clamp(1.05rem,2.8vw,1.35rem);color:#fff2de;
+}
+
+/* ── 02 role playing ──────────────────────────────────────── */
+.mask{
+  border:1px solid var(--rule);border-radius:2px;padding:1.1rem;
+  background:linear-gradient(180deg,rgba(246,163,60,.08),rgba(246,163,60,.01));
+}
+.mask h3{font-size:1.02rem;color:var(--lamp-hot);font-family:var(--sans);letter-spacing:.02em}
+.mask p:last-child{margin-bottom:0}
+.struck{text-decoration:line-through;text-decoration-color:var(--alarm);text-decoration-thickness:2px;color:#8c8071}
+
+/* ── 03 first principles ──────────────────────────────────── */
+.axioms{counter-reset:ax;list-style:none;padding:0;display:grid;gap:.75rem}
+.axioms li{
+  counter-increment:ax;margin:0;padding:1rem 1.1rem 1rem 3.4rem;position:relative;
+  border:1px solid rgba(255,255,255,.12);border-radius:2px;background:rgba(255,255,255,.028);
+  font-size:clamp(1rem,2.6vw,1.2rem);color:#fff2de;
+}
+.axioms li::before{
+  content:"A" counter(ax);position:absolute;left:1rem;top:1rem;
+  font-family:var(--mono);font-size:.78rem;color:var(--lamp);letter-spacing:.1em;
+}
+
+/* ── 04 reverse ───────────────────────────────────────────── */
+.mirror{
+  font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--alarm);
+  font-size:.8rem;transform:scaleX(-1);display:inline-block;margin-bottom:.6rem;
+}
+.reverse-card{
+  border:1px dashed rgba(239,93,67,.45);padding:1.2rem 1.3rem;border-radius:2px;
+  background:linear-gradient(180deg,rgba(239,93,67,.07),transparent);
+}
+
+/* ── 05 five whys — the centre of the session ─────────────── */
+.whys-band{
+  background:
+    radial-gradient(70vw 60vh at 50% 20%,rgba(246,163,60,.13),rgba(0,0,0,0) 70%),
+    linear-gradient(180deg,#0d0b09,#151109 55%,#0b0908);
+  border-top:1px solid rgba(246,163,60,.35);
+  border-bottom:1px solid rgba(246,163,60,.35);
+  padding:clamp(3rem,10vh,6rem) 0 clamp(3.5rem,11vh,7rem);
+  margin:clamp(2rem,6vh,3rem) 0;
+}
+.whys-band h2{font-size:clamp(1.9rem,6.5vw,3.4rem);color:#fff6e8;text-align:center}
+.whys-band .lead{text-align:center;color:#c2b096;max-width:44ch;margin:0 auto 2.6rem;font-family:var(--sans);font-size:.95rem}
+.chain{list-style:none;padding:0;margin:0 auto;max-width:860px}
+.chain li{
+  position:relative;margin:0 0 .35rem;padding:0 0 1.9rem;
+  --step:0;
+  padding-left:calc(var(--step) * 4%);
+}
+.chain li:last-child{padding-bottom:0}
+.link{
+  position:relative;border:1px solid rgba(246,163,60,.3);border-radius:2px;
+  background:linear-gradient(180deg,rgba(246,163,60,.08),rgba(0,0,0,.25));
+  padding:1rem 1.15rem;
+}
+.link .why{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--lamp);display:block;margin-bottom:.4rem;
+}
+.link p{margin:0;font-size:clamp(1rem,2.7vw,1.25rem);color:#fff2de}
+.chain li::after{
+  content:"";position:absolute;left:calc(var(--step) * 4% + 26px);bottom:.35rem;width:1px;height:1.5rem;
+  background:linear-gradient(to bottom,rgba(246,163,60,.65),rgba(246,163,60,.05));
+}
+.chain li:last-child::after{display:none}
+.chain li.root .link{
+  border-color:var(--lamp);
+  background:linear-gradient(180deg,rgba(246,163,60,.24),rgba(246,163,60,.05));
+  box-shadow:0 0 70px -14px rgba(246,163,60,.75);
+}
+.chain li.root .why{color:#fff}
+.chain li.root p{color:#fff}
+.chain .sidenote{
+  margin:.6rem 0 0;font-family:var(--sans);font-size:.86rem;color:#9f8f78;
+  border-left:2px solid rgba(246,163,60,.28);padding-left:.8rem;
+}
+.whys-verdict{
+  max-width:860px;margin:2.6rem auto 0;text-align:center;
+  font-size:clamp(1.05rem,3vw,1.4rem);color:#ffd9a6;font-style:italic;
+}
+
+/* ── 06 provocation ───────────────────────────────────────── */
+.provoke{
+  font-size:clamp(1.2rem,4vw,2rem);color:#6f6252;text-align:center;margin-bottom:1.4rem;
+  text-decoration:line-through;text-decoration-color:rgba(239,93,67,.75);text-decoration-thickness:3px;
+}
+.survivors{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.3rem}
+.survivors span{
+  border:1px solid rgba(246,163,60,.45);color:#fff2de;padding:.55rem .9rem;border-radius:2px;
+  font-family:var(--sans);font-size:.95rem;background:rgba(246,163,60,.08);
+}
+
+/* ── 07 assumption reversal ───────────────────────────────── */
+.flip{display:grid;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+@media(min-width:720px){.flip{grid-template-columns:1fr auto 1fr;align-items:center}}
+.flip .side{padding:1.2rem 1.3rem}
+.flip .was{color:#8c8071;text-decoration:line-through;text-decoration-color:rgba(239,93,67,.6)}
+.flip .pivot{
+  font-family:var(--mono);color:var(--lamp);font-size:1.3rem;padding:.4rem 1rem;text-align:center;
+  background:rgba(246,163,60,.1);
+}
+.flip .now{color:#fff2de;background:rgba(246,163,60,.05)}
+
+/* ── 08 question storming ─────────────────────────────────── */
+.bigq{
+  font-size:clamp(1.3rem,4.6vw,2.4rem);color:#fff2de;line-height:1.25;
+  padding-left:clamp(2.6rem,9vw,4.4rem);position:relative;
+}
+.bigq::before{
+  content:"?";position:absolute;left:0;top:-.12em;font-family:var(--serif);
+  font-size:clamp(3.4rem,12vw,6rem);color:rgba(142,198,216,.4);line-height:1;
+}
+
+/* ── 09 causal loop ───────────────────────────────────────── */
+.loop{
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;
+  border:1px solid var(--rule);border-radius:999px;padding:1.4rem 1.2rem;
+  background:radial-gradient(60% 60% at 50% 50%,rgba(246,163,60,.07),transparent 75%);
+  font-family:var(--mono);font-size:.76rem;text-align:center;
+}
+.loop b{color:#fff2de;font-weight:600;letter-spacing:.08em}
+.loop .plus{color:var(--leaf)}
+.loop .minus{color:var(--alarm)}
+
+/* ── 10 morphological grid ────────────────────────────────── */
+.morph{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.92rem}
+.morph caption{text-align:left;color:#9f8f78;font-size:.82rem;padding-bottom:.6rem}
+.morph th,.morph td{border:1px solid rgba(246,163,60,.2);padding:.7rem .8rem;text-align:left;vertical-align:top}
+.morph th{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--lamp-dim);white-space:nowrap;background:rgba(246,163,60,.05);width:1%;
+}
+.morph td{color:#e6ddcd}
+.newflag{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--leaf);border:1px solid rgba(157,196,127,.4);padding:.1rem .35rem;border-radius:2px;margin-left:.4rem;white-space:nowrap}
+
+/* ── 11 laddering ─────────────────────────────────────────── */
+.ladder{list-style:none;padding:0;margin:0;display:flex;flex-direction:column-reverse;gap:.5rem}
+.ladder li{
+  margin:0;padding:.95rem 1.1rem;border:1px solid var(--rule);border-radius:2px;
+  background:rgba(246,163,60,.045);position:relative;
+}
+.ladder li .rung{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lamp-dim);display:block;margin-bottom:.3rem}
+.ladder li.top{
+  background:linear-gradient(180deg,rgba(246,163,60,.2),rgba(246,163,60,.04));
+  border-color:rgba(246,163,60,.6);box-shadow:0 0 50px -18px rgba(246,163,60,.8);
+}
+.ladder li.top p{color:#fff6e8;font-size:clamp(1.05rem,2.8vw,1.3rem);margin:0}
+.ladder li p{margin:0}
+
+/* ── 12 scamper ───────────────────────────────────────────── */
+.cutlist{display:grid;gap:.6rem}
+.cut{
+  display:flex;gap:.8rem;align-items:center;border:1px solid rgba(239,93,67,.3);
+  padding:.8rem 1rem;border-radius:2px;background:rgba(239,93,67,.05);
+}
+.cut .x{font-family:var(--mono);color:var(--alarm);font-size:1.1rem;flex:none}
+.cut span:last-child{text-decoration:line-through;text-decoration-color:rgba(239,93,67,.5);color:#bdaf9a}
+.keeps{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.keeps span{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(246,163,60,.5);color:#fff2de;padding:.45rem .7rem;border-radius:2px;
+  background:rgba(246,163,60,.1);
+}
+
+/* ── 13 six hats ──────────────────────────────────────────── */
+.hat{border-radius:2px;padding:1.1rem 1.2rem;border:1px solid}
+.hat .name{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.45rem}
+.hat p{margin:0;color:#fff2de}
+.hat-black{border-color:rgba(255,255,255,.25);background:linear-gradient(180deg,rgba(255,255,255,.06),transparent)}
+.hat-black .name{color:#cfc4b2}
+.hat-red{border-color:rgba(239,93,67,.45);background:linear-gradient(180deg,rgba(239,93,67,.1),transparent)}
+.hat-red .name{color:var(--alarm)}
+
+/* ── 14 lotus blossom ─────────────────────────────────────── */
+.lotus{display:grid;gap:.6rem}
+@media(min-width:760px){.lotus{grid-template-columns:repeat(3,1fr)}}
+.petal,.core{
+  border:1px solid var(--rule);border-radius:2px;padding:1rem;text-align:center;
+  background:rgba(246,163,60,.05);font-family:var(--sans);font-size:.95rem;color:#e6ddcd;
+  display:flex;align-items:center;justify-content:center;min-height:92px;
+}
+.core{
+  background:radial-gradient(70% 70% at 50% 50%,rgba(246,163,60,.3),rgba(246,163,60,.06));
+  border-color:rgba(246,163,60,.7);color:#fff6e8;font-family:var(--serif);
+  font-size:clamp(1.05rem,3vw,1.3rem);box-shadow:0 0 60px -20px rgba(246,163,60,.9);
+}
+
+/* ── 15 worst possible idea ───────────────────────────────── */
+.worst{
+  position:relative;border:2px solid var(--alarm);border-radius:2px;overflow:hidden;
+  background:repeating-linear-gradient(135deg,rgba(239,93,67,.14) 0 14px,rgba(239,93,67,.04) 14px 28px);
+  padding:clamp(1.4rem,4vw,2.4rem);
+}
+.worst .banner{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--alarm);
+  margin-bottom:.8rem;
+}
+.worst p{font-size:clamp(1.1rem,3.4vw,1.55rem);color:#ffe3dc;margin:0 0 .9rem}
+.worst p:last-child{margin:0}
+.fakeads{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;margin:1.1rem 0}
+.fakeads i{
+  display:block;height:22px;background:rgba(239,93,67,.35);border:1px dashed rgba(255,200,190,.5);
+  border-radius:2px;
+}
+.fakeads i:nth-child(3){grid-column:span 2}
+.fakeads i:nth-child(6){grid-column:span 3}
+
+/* ── 16 disney / the dream quote ──────────────────────────── */
+.dream{
+  padding:clamp(3rem,9vh,5.5rem) 0;
+  background:
+    radial-gradient(60vw 50vh at 50% 40%,rgba(246,163,60,.16),transparent 70%);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.dream blockquote{
+  margin:0;position:relative;padding:clamp(1.6rem,5vw,3rem) clamp(1.4rem,5vw,3.2rem);
+  font-size:clamp(1.25rem,4.2vw,2.15rem);line-height:1.38;color:#fff6e8;
+  border:1px solid rgba(246,163,60,.35);border-radius:2px;
+  background:linear-gradient(180deg,rgba(246,163,60,.08),rgba(0,0,0,.35));
+  box-shadow:0 0 90px -30px rgba(246,163,60,.8);
+}
+.dream blockquote::before{
+  content:"\201C";position:absolute;left:.1em;top:-.28em;font-size:clamp(5rem,16vw,10rem);
+  color:rgba(246,163,60,.22);line-height:1;pointer-events:none;
+}
+.dream .machan{color:var(--lamp-hot);font-style:italic}
+.dream figcaption{
+  margin-top:1.1rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--lamp-dim);
+}
+.pitch4{display:grid;gap:.6rem;margin-top:2rem}
+@media(min-width:720px){.pitch4{grid-template-columns:repeat(4,1fr)}}
+.pitch4 div{
+  border-top:2px solid var(--lamp);padding:.8rem .2rem 0;font-family:var(--sans);
+  font-size:.92rem;color:#e6ddcd;
+}
+.pitch4 b{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lamp-dim);margin-bottom:.35rem}
+
+/* ── 17 starbursting ──────────────────────────────────────── */
+.star{display:grid;gap:.6rem}
+@media(min-width:720px){.star{grid-template-columns:1fr 1fr}}
+.star .ray{border:1px solid var(--rule);border-radius:2px;padding:1rem 1.1rem;background:rgba(255,255,255,.02)}
+.star .ray b{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lamp);display:block;margin-bottom:.4rem}
+.star .ray p{margin:0}
+.star .ray.missing{border-style:dashed;border-color:rgba(239,93,67,.45);background:rgba(239,93,67,.05)}
+.star .ray.missing b{color:var(--alarm)}
+
+/* ── 18 how might we ──────────────────────────────────────── */
+.hmw{
+  text-align:center;padding:clamp(1.6rem,5vw,2.8rem);
+  border:1px solid rgba(246,163,60,.4);border-radius:2px;
+  background:linear-gradient(180deg,rgba(246,163,60,.1),transparent);
+}
+.hmw .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--lamp-dim);display:block;margin-bottom:.8rem}
+.hmw p{font-size:clamp(1.2rem,4.2vw,2rem);color:#fff6e8;margin:0;line-height:1.3}
+
+/* ── 19 job to be done ────────────────────────────────────── */
+.jtbd{
+  font-family:var(--mono);font-size:clamp(.95rem,2.8vw,1.15rem);line-height:1.8;color:#e6ddcd;
+  border:1px solid var(--rule);border-radius:2px;padding:1.3rem 1.4rem;background:rgba(255,255,255,.02);
+}
+.jtbd mark{background:rgba(246,163,60,.2);color:#fff6e8;padding:.1rem .3rem;border-radius:2px}
+
+/* ── 20 empathy map ───────────────────────────────────────── */
+.empathy{display:grid;gap:.6rem}
+@media(min-width:720px){.empathy{grid-template-columns:repeat(4,1fr)}}
+.empathy div{
+  border:1px solid var(--rule);border-radius:2px;padding:.9rem;font-family:var(--sans);font-size:.92rem;
+  background:rgba(255,255,255,.02);
+}
+.empathy b{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--lamp-dim);margin-bottom:.35rem}
+.empathy .live{background:rgba(246,163,60,.1);border-color:rgba(246,163,60,.5);color:#fff2de}
+
+/* ── 21 backcasting ───────────────────────────────────────── */
+.collide{display:grid;gap:.6rem;align-items:stretch}
+@media(min-width:720px){.collide{grid-template-columns:1fr auto 1fr}}
+.collide .plan{border:1px solid var(--rule);border-radius:2px;padding:1rem 1.1rem;background:rgba(255,255,255,.02)}
+.collide .bang{
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+  color:var(--alarm);font-size:.8rem;letter-spacing:.2em;padding:.4rem;
+}
+.resolved{
+  margin-top:1rem;border:1px solid rgba(246,163,60,.5);border-radius:2px;padding:1.1rem 1.2rem;
+  background:linear-gradient(180deg,rgba(246,163,60,.12),transparent);color:#fff2de;
+}
+.resolved b{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lamp);display:block;margin-bottom:.4rem}
+
+/* ── 22 triz ──────────────────────────────────────────────── */
+.poles{display:grid;gap:.6rem}
+@media(min-width:720px){.poles{grid-template-columns:1fr 1fr}}
+.pole{border:1px solid var(--rule);border-radius:2px;padding:1.1rem;background:rgba(255,255,255,.02)}
+.pole b{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lamp-dim);margin-bottom:.4rem}
+.adzone{display:grid;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-top:1rem;font-family:var(--sans)}
+@media(min-width:720px){.adzone{grid-template-columns:1fr 1fr}}
+.adzone div{padding:1.1rem 1.2rem}
+.adzone .yes-ads{background:rgba(246,163,60,.12);color:#fff2de}
+.adzone .no-ads{background:rgba(0,0,0,.4);color:#cfc4b2;border-left:1px solid var(--rule)}
+.adzone b{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.4rem;color:var(--lamp)}
+.adzone .no-ads b{color:#8c8071}
+
+/* ── 23 fishbone ──────────────────────────────────────────── */
+.fish{position:relative;padding:1.2rem 0 1.2rem 1.4rem;border-left:2px solid rgba(246,163,60,.45)}
+.fish .bone{
+  position:relative;margin:0 0 .8rem;padding:.85rem 1rem;border:1px solid var(--rule);border-radius:2px;
+  background:rgba(255,255,255,.02);
+}
+.fish .bone::before{
+  content:"";position:absolute;left:-1.4rem;top:1.3rem;width:1.4rem;height:1px;background:rgba(246,163,60,.45);
+}
+.fish .bone b{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lamp-dim);display:block;margin-bottom:.3rem}
+.fish .bone p{margin:0}
+
+/* ── research (external, cold light) ──────────────────────── */
+.research{
+  border:1px solid var(--cool-dim);border-radius:2px;
+  background:linear-gradient(180deg,rgba(142,198,216,.07),rgba(142,198,216,.015));
+  padding:clamp(1.2rem,3.5vw,1.9rem);position:relative;margin-top:1.4rem;
+  box-shadow:0 0 60px -26px rgba(142,198,216,.6);
+}
+.research::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(142,198,216,.05) 0 1px,transparent 1px 4px);
+}
+.research .stamp{
+  display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cool);border:1px solid var(--cool-dim);padding:.3rem .55rem;border-radius:2px;margin-bottom:1rem;
+}
+.research h3{color:#d6eef6;font-family:var(--sans);font-size:1.05rem}
+.research ul{list-style:none;padding:0;position:relative}
+.research li{
+  padding-left:1.4rem;position:relative;color:#cfe4ec;
+}
+.research li::before{content:"↗";position:absolute;left:0;color:var(--cool);font-family:var(--mono);font-size:.8rem}
+.research .caveat{
+  margin:1rem 0 0;font-family:var(--sans);font-size:.84rem;color:#8fa9b3;border-top:1px solid var(--cool-dim);padding-top:.8rem;
+}
+.rpm{display:grid;gap:.5rem;margin:1rem 0}
+@media(min-width:620px){.rpm{grid-template-columns:1fr 1fr}}
+.rpm div{border:1px solid var(--cool-dim);border-radius:2px;padding:.85rem 1rem;background:rgba(0,0,0,.25)}
+.rpm b{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#7fa3b0;margin-bottom:.3rem}
+.rpm .fig{font-family:var(--mono);font-size:clamp(1.1rem,3.4vw,1.5rem);color:#d6eef6}
+.rpm .lo .fig{color:#e4a58f}
+
+/* ── synthesis climax ─────────────────────────────────────── */
+.synth{
+  padding:clamp(3rem,9vh,6rem) 0;
+  background:
+    radial-gradient(80vw 60vh at 50% 0%,rgba(246,163,60,.14),transparent 70%),
+    linear-gradient(180deg,#100d0a,#0a0908);
+  border-top:1px solid rgba(246,163,60,.4);
+}
+.synth h2{font-size:clamp(2rem,7vw,3.6rem);text-align:center;color:#fff6e8;margin-bottom:.3em}
+.synth .lead{text-align:center;color:#c2b096;font-family:var(--sans);max-width:50ch;margin:0 auto 2.6rem}
+.sy{
+  border:1px solid rgba(246,163,60,.28);border-radius:2px;margin-bottom:1rem;
+  background:linear-gradient(180deg,rgba(246,163,60,.06),transparent);
+  padding:clamp(1.2rem,3.5vw,1.8rem);
+}
+.sy .n{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--lamp);
+  display:block;margin-bottom:.55rem;
+}
+.sy h3{font-size:clamp(1.1rem,3.2vw,1.45rem);color:#fff6e8}
+.sy p:last-child{margin-bottom:0}
+.sy.tension{
+  border-color:rgba(239,93,67,.55);
+  background:linear-gradient(180deg,rgba(239,93,67,.1),rgba(246,163,60,.04));
+  box-shadow:0 0 70px -24px rgba(239,93,67,.8);
+}
+.sy.tension .n{color:var(--alarm)}
+.tension-scale{display:grid;gap:.6rem;margin:1.1rem 0 0}
+@media(min-width:720px){.tension-scale{grid-template-columns:1fr auto 1fr;align-items:center}}
+.tension-scale .pan{border:1px solid rgba(239,93,67,.35);border-radius:2px;padding:.9rem 1rem;background:rgba(0,0,0,.3)}
+.tension-scale .pan b{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--alarm);margin-bottom:.3rem}
+.tension-scale .vs{text-align:center;font-family:var(--mono);color:var(--alarm);font-size:.8rem;letter-spacing:.2em}
+
+/* ── decisions: sequence, constraints ─────────────────────── */
+.seq{list-style:none;padding:0;counter-reset:s;display:grid;gap:.7rem}
+@media(min-width:860px){.seq{grid-template-columns:repeat(3,1fr)}}
+.seq li{
+  counter-increment:s;margin:0;padding:1.2rem 1.2rem 1.2rem;position:relative;
+  border:1px solid rgba(246,163,60,.35);border-radius:2px;background:rgba(246,163,60,.05);
+}
+.seq li::before{
+  content:counter(s);display:block;font-family:var(--mono);font-size:2.4rem;line-height:1;
+  color:rgba(246,163,60,.45);margin-bottom:.5rem;
+}
+.seq li b{display:block;color:#fff6e8;margin-bottom:.35rem;font-size:1.05rem}
+.seq li p{margin:0;font-family:var(--sans);font-size:.9rem;color:#c2b096}
+
+.rules{list-style:none;padding:0;display:grid;gap:.5rem}
+@media(min-width:720px){.rules{grid-template-columns:1fr 1fr}}
+.rules li{
+  margin:0;display:flex;gap:.7rem;align-items:flex-start;padding:.85rem 1rem;
+  border:1px solid var(--rule);border-radius:2px;background:rgba(255,255,255,.02);
+}
+.rules li .mark{font-family:var(--mono);color:var(--lamp);flex:none;font-size:.85rem;padding-top:.1rem}
+.rules li span:last-child{color:#e6ddcd;font-family:var(--sans);font-size:.93rem}
+.rules li.no .mark{color:var(--alarm)}
+
+/* ── scraps ───────────────────────────────────────────────── */
+.scraps{display:grid;gap:1rem}
+@media(min-width:760px){.scraps{grid-template-columns:repeat(2,1fr)}}
+.scrap h3{font-family:var(--sans);font-size:1rem;margin-bottom:.4rem}
+.scrap p:last-child{margin-bottom:0}
+.scrap .pin{
+  position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#ffd08a,#c07a1e);
+  box-shadow:0 2px 6px rgba(0,0,0,.7);
+}
+.collections{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.collections span{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(29,24,20,.3);color:#3a3129;padding:.3rem .5rem;border-radius:2px;
+  background:rgba(29,24,20,.05);
+}
+
+/* ── risks ────────────────────────────────────────────────── */
+.risks{display:grid;gap:.6rem}
+@media(min-width:760px){.risks{grid-template-columns:repeat(3,1fr)}}
+.risk{border:1px solid rgba(239,93,67,.35);border-radius:2px;padding:1rem 1.1rem;background:rgba(239,93,67,.05)}
+.risk b{display:block;color:#ffb8a8;font-family:var(--sans);margin-bottom:.35rem}
+.risk p{margin:0;font-size:.92rem;color:#d7c7bb}
+
+/* ── footer ───────────────────────────────────────────────── */
+footer{
+  padding:clamp(3rem,9vh,5rem) 0 clamp(2rem,6vh,3rem);
+  border-top:1px solid var(--rule);text-align:center;
+}
+footer .next{
+  display:inline-block;border:1px solid rgba(246,163,60,.4);border-radius:2px;
+  padding:1.1rem 1.4rem;background:rgba(246,163,60,.06);margin-bottom:1.8rem;
+}
+footer .next b{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lamp-dim);margin-bottom:.5rem}
+footer .next p{margin:0;color:#fff2de}
+footer .sig{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#6b5f4f}
+.lamp-off{width:1px;height:60px;margin:2rem auto 1rem;background:linear-gradient(to bottom,rgba(246,163,60,.35),transparent)}
+
+/* ── progress rail ────────────────────────────────────────── */
+#rail{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:50;
+  background:linear-gradient(90deg,var(--lamp-dim),var(--lamp-hot));
+  box-shadow:0 0 12px rgba(246,163,60,.7);
+}
+
+/* ── reveal ───────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* small screens */
+@media(max-width:719px){
+  .chain li{padding-left:calc(var(--step) * 1.6%)}
+  .chain li::after{left:calc(var(--step) * 1.6% + 20px)}
+  .fakeads{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="rail" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="chords" aria-hidden="true">
+    <span style="top:12%;left:6%">Am</span>
+    <span style="top:26%;left:86%">G</span>
+    <span style="top:58%;left:12%">D/F#</span>
+    <span style="top:70%;left:78%">Bm</span>
+    <span style="top:40%;left:46%;font-size:1.2rem">capo 2</span>
+    <span style="top:84%;left:34%">Cmaj7</span>
+    <span style="top:16%;left:62%">F</span>
+  </div>
+  <div class="bulb" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker">A facilitated brainstorming session · 27 September 2026</p>
+    <h1>chordslanka<span class="dot">.lk</span></h1>
+    <p class="sub">Twenty-five techniques. One question at a time. Nobody brought an idea into the room except the founder.</p>
+    <p class="stampline">
+      <span>Mode: facilitator</span>
+      <span>25 techniques run</span>
+      <span>4 set aside</span>
+      <span>Status: complete</span>
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── framing ───────────────────────────────────────── -->
+  <section class="narrow oath rv" aria-labelledby="framing">
+    <h2 id="framing" class="kicker" style="margin-bottom:.9em">How to read this</h2>
+    <p class="big">Every idea on this page is the founder's. The facilitator only asked questions, one at a time, and waited.</p>
+    <p>The session opened on a working title, <em>SongChords</em>, and a goal: sharpen the product from the founder's own ideas before any code is written. A batch of 29 techniques was pasted in; four were set aside for this pass — Brain Writing Round Robin, Random Stimulation, Mind Mapping and Crazy 8s — because they need a group sheet, a live random stimulus, or room to sprawl. The other twenty-five each became one question.</p>
+    <p>Somewhere near the end the product renamed itself. What follows is the order it actually happened in.</p>
+  </section>
+
+  <!-- ── what was already on the table ─────────────────── -->
+  <section class="wrap tech rv" aria-labelledby="table">
+    <div class="tech-head">
+      <span class="tech-num">00</span>
+      <h2 id="table">What was already on the table</h2>
+      <p class="q">Standing context the founder asked to be held throughout the session.</p>
+    </div>
+
+    <div class="grid g2">
+      <div>
+        <p class="kicker">The product flow, as the founder drew it</p>
+        <div class="flow" aria-label="Product flow: SONG splits to DISCOVER and ANALYZE. DISCOVER goes to CHORDS. ANALYZE goes to AI, and AI also feeds CHORDS. CHORDS splits to KEY, CAPO and CHORDS, which rejoin into LEARN, then PRACTICE, then PLAY, then MASTERED.">
+          <span class="node hot">SONG</span><span class="arrow">→</span>
+          <span class="branch"><span class="node">DISCOVER</span><span class="node">ANALYZE</span></span>
+          <span class="arrow">→</span>
+          <span class="node">AI</span><span class="arrow">→</span>
+          <span class="node hot">CHORDS</span><span class="arrow">→</span>
+          <span class="branch"><span class="node">KEY</span><span class="node">CAPO</span><span class="node">CHORDS</span></span>
+          <span class="arrow">→</span>
+          <span class="node">LEARN</span><span class="arrow">→</span>
+          <span class="node">PRACTICE</span><span class="arrow">→</span>
+          <span class="node">PLAY</span><span class="arrow">→</span>
+          <span class="node hot">MASTERED</span>
+        </div>
+        <p style="font-family:var(--sans);font-size:.88rem;color:#9f8f78;margin-top:.9rem">DISCOVER feeds CHORDS directly; ANALYZE goes through AI, and AI feeds CHORDS too. KEY, CAPO and CHORDS rejoin before LEARN.</p>
+      </div>
+
+      <div class="note">
+        <span class="lbl">Standing brief — ads, carried in from before the session</span>
+        <p>Production-ready AdSense via env-configured client and slot IDs. Reusable components. Ads only on discover surfaces — home, search, song metadata, artist, category — and <strong>never</strong> inside Play, Practice, the tuner or the metronome. No deceptive placements. Reserved space so nothing jumps. <code>ads.txt</code> from the real publisher ID. Consent documented, not invented.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── index ─────────────────────────────────────────── -->
+  <nav class="wrap index rv" aria-label="The twenty-five techniques">
+    <p class="kicker">The twenty-five, in the order they were asked</p>
+    <ol>
+      <li><a href="#t01">Yes And Building</a></li>
+      <li><a href="#t02">Role Playing</a></li>
+      <li><a href="#t03">First Principles</a></li>
+      <li><a href="#t04">Reverse Brainstorming</a></li>
+      <li><a href="#t05">Five Whys</a></li>
+      <li><a href="#t06">Provocation</a></li>
+      <li><a href="#t07">Assumption Reversal</a></li>
+      <li><a href="#t08">Question Storming</a></li>
+      <li><a href="#t09">Causal Loop Mapping</a></li>
+      <li><a href="#t10">Morphological Analysis</a></li>
+      <li><a href="#t11">Laddering</a></li>
+      <li><a href="#t12">SCAMPER</a></li>
+      <li><a href="#t13">Six Thinking Hats</a></li>
+      <li><a href="#t14">Lotus Blossom</a></li>
+      <li><a href="#t15">Worst Possible Idea</a></li>
+      <li><a href="#t16">Disney Method</a></li>
+      <li><a href="#t17">Starbursting</a></li>
+      <li><a href="#t18">How Might We</a></li>
+      <li><a href="#t19">Job to Be Done</a></li>
+      <li><a href="#t20">Empathy Map</a></li>
+      <li><a href="#t21">Backcasting</a></li>
+      <li><a href="#t22">TRIZ Contradiction</a></li>
+      <li><a href="#t23">Fishbone Diagram</a></li>
+      <li><a href="#t24">Build on What Works</a></li>
+      <li><a href="#t25">Scenario Cross</a></li>
+    </ol>
+  </nav>
+
+  <!-- ── 01 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t01" aria-labelledby="h01">
+    <div class="tech-head">
+      <span class="tech-num">01</span>
+      <h2 id="h01">Yes And Building</h2>
+      <p class="q">Take the flow you drew and add to it without deleting anything.</p>
+    </div>
+    <div class="yesand">
+      <span class="yes">YES,</span>
+      <p class="and">and the song path must be very usable — the UI and UX should be <strong>outstanding</strong>.</p>
+    </div>
+    <p style="margin-top:1rem"><span class="tag tag-idea">idea</span> The first thing the founder added to their own diagram was not a feature. It was a standard.</p>
+  </section>
+
+  <!-- ── 02 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t02" aria-labelledby="h02">
+    <div class="tech-head">
+      <span class="tech-num">02</span>
+      <h2 id="h02">Role Playing</h2>
+      <p class="q">Stand inside the people who will use this. What does each one need?</p>
+    </div>
+    <div class="grid g3">
+      <article class="mask">
+        <h3>The beginner</h3>
+        <p><span class="tag tag-idea">idea</span> Should not care which day it is. Friday or Sunday, the experience is the same. No day-based or event-based framing.</p>
+      </article>
+      <article class="mask">
+        <h3>The experienced guitarist</h3>
+        <p><span class="tag tag-idea">idea</span> Should be able to <strong>suggest a correction</strong> rather than complain. Design the suggestion path, not a complaint channel.</p>
+      </article>
+      <article class="mask">
+        <h3>The user with no signal</h3>
+        <p><span class="tag tag-idea">idea</span> <span class="struck">Offline packs.</span> Offline should not be supported. Ad revenue is the main goal, and offline use earns nothing.</p>
+        <p style="margin:.6rem 0 0"><span class="tag tag-insight">reversal</span> This overturns the earlier discovery assumption that offline packs were a premium direction.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── 03 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t03" aria-labelledby="h03">
+    <div class="tech-head">
+      <span class="tech-num">03</span>
+      <h2 id="h03">First Principles Thinking</h2>
+      <p class="q">Strip it back. What is irreducibly true about a chord sheet?</p>
+    </div>
+    <ol class="axioms">
+      <li>A song must default to its <strong>original scale or key</strong>. The original is the starting truth, not a user preference.</li>
+      <li>The user must see the <strong>full chord sheet at once</strong>, in readable fonts. Readability is a requirement, not a setting.</li>
+      <li>The user must be able to <strong>transpose</strong> from that original key.</li>
+    </ol>
+  </section>
+
+  <!-- ── 04 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t04" aria-labelledby="h04">
+    <div class="tech-head">
+      <span class="tech-num">04</span>
+      <h2 id="h04">Reverse Brainstorming</h2>
+      <p class="q">How would you guarantee this fails?</p>
+    </div>
+    <div class="reverse-card">
+      <span class="mirror">esrever ni</span>
+      <p style="font-size:clamp(1.05rem,3vw,1.3rem);margin:0;color:#fff2de"><span class="tag tag-idea">idea</span> Traffic in month one is <strong>not</strong> success. If the UX is poor the product has still failed, no matter the visitor count.</p>
+    </div>
+  </section>
+
+  <!-- ── 05 FIVE WHYS — THE CENTRE ─────────────────────── -->
+  <section class="whys-band rv" id="t05" aria-labelledby="h05">
+    <div class="wrap">
+      <p class="kicker" style="text-align:center">Technique 05 · the centre of the session</p>
+      <h2 id="h05">Five Whys</h2>
+      <p class="lead">It started with something small and slightly annoying: people screenshot chord sheets instead of coming back to the site. Five questions later it was not about screenshots at all.</p>
+
+      <ol class="chain">
+        <li style="--step:0">
+          <div class="link">
+            <span class="why">The observation</span>
+            <p>People screenshot chords instead of returning to the site.</p>
+          </div>
+        </li>
+        <li style="--step:1">
+          <div class="link">
+            <span class="why">Why? — one</span>
+            <p>Because searching again every time is not easy. The screenshot is a shortcut past repeat search.</p>
+            <p class="sidenote"><span class="tag tag-idea">idea</span> Give users a favourites list they can add to and remove from, so they never re-search a song they already found. And let them build their own collections by occasion and theme.</p>
+          </div>
+        </li>
+        <li style="--step:2">
+          <div class="link">
+            <span class="why">Why? — two</span>
+            <p>Because typing a song name, or <em>any delay at all</em>, kills the enthusiasm of a trip or party singalong. The moment is social and it does not wait.</p>
+          </div>
+        </li>
+        <li style="--step:3">
+          <div class="link">
+            <span class="why">Why? — three</span>
+            <p>Because during that pause someone in the group just starts singing, in whatever pitch they landed on — and the guitarist is left chasing that key by ear.</p>
+            <p class="sidenote"><span class="tag tag-insight">insight</span> The singer sets the key, not the guitarist. The product has to be able to catch up to a key that is already in the air.</p>
+          </div>
+        </li>
+        <li style="--step:4">
+          <div class="link">
+            <span class="why">Why? — four</span>
+            <p>Because only a pro can find the key by ear quickly. Everyone else cannot. Following a singer is currently a <strong>skill gate</strong>, not a tool.</p>
+          </div>
+        </li>
+        <li style="--step:5" class="root">
+          <div class="link">
+            <span class="why">Why? — five · root cause</span>
+            <p>Because the missing thing is <strong>years of experience</strong>. Following a singer by ear is earned. It cannot be taught in the moment.</p>
+          </div>
+        </li>
+      </ol>
+
+      <p class="whys-verdict">The screenshot habit traces all the way down to a skill gap — and a skill gap is something a product can stand in for.</p>
+    </div>
+  </section>
+
+  <!-- ── 06 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t06" aria-labelledby="h06">
+    <div class="tech-head">
+      <span class="tech-num">06</span>
+      <h2 id="h06">Provocation Technique</h2>
+      <p class="q">Suppose the library is empty on launch day. What is left?</p>
+    </div>
+    <p class="provoke">The catalog</p>
+    <div class="survivors">
+      <span>A built-in AI song analyser</span>
+      <span>A guitar tuner</span>
+      <span>Request-a-song</span>
+    </div>
+    <div class="note">
+      <span class="lbl">Principle hiding in the provocation</span>
+      <p>The catalog is not the whole product. Tools work on any song, including one that was never in the database. And request-a-song turns a missing song into a <strong>demand signal</strong> instead of a dead end.</p>
+    </div>
+  </section>
+
+  <!-- ── 07 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t07" aria-labelledby="h07">
+    <div class="tech-head">
+      <span class="tech-num">07</span>
+      <h2 id="h07">Assumption Reversal</h2>
+      <p class="q">What if the assumption at the centre is wrong?</p>
+    </div>
+    <div class="flip">
+      <div class="side was">The chord sheet is the centre of the product. Everything else orbits it.</div>
+      <div class="pivot" aria-hidden="true">⇄</div>
+      <div class="side now"><span class="tag tag-idea">idea</span> The chord sheet is <em>not necessarily</em> the centre. The tools around it — the guitar tuner, the AI chord analyser — carry their own usability weight and can pull users in on their own.</div>
+    </div>
+    <p style="margin-top:1rem;font-family:var(--sans);font-size:.9rem;color:#9f8f78">Hold this one. Technique 12 comes back and argues with it.</p>
+  </section>
+
+  <!-- ── 08 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t08" aria-labelledby="h08">
+    <div class="tech-head">
+      <span class="tech-num">08</span>
+      <h2 id="h08">Question Storming</h2>
+      <p class="q">Don't answer anything. What is the biggest question you have?</p>
+    </div>
+    <p class="bigq"><span class="tag tag-question">question</span><br>How do we get songs into the database when the chord sheets we already have are <strong>JPEG images and PDFs</strong>?</p>
+    <div class="grid g2" style="margin-top:1.6rem">
+      <div class="paper tilt-l">
+        <p class="meta">What the founder already owns</p>
+        <p style="font-size:clamp(1.4rem,5vw,2.2rem);margin:.4rem 0;font-weight:700">≈ 5,000 chord sheets</p>
+        <p style="margin:0">Sitting in Google Drive as JPEG and PDF. Content is <strong>not</strong> a risk for this product. The source material simply is not text.</p>
+      </div>
+      <div class="note">
+        <span class="lbl">This changes the cold-start story completely</span>
+        <p>The real unknown is not whether there is content — it is the <strong>pipeline</strong>: how to read 5,000 images and PDFs and turn them into structured text the site can use. Ingestion is an image-to-structured-chords problem.</p>
+        <p>Earlier discovery had assumed a 30-song manual transcription sprint. The actual asset is 5,000 sheets already in hand, gated behind conversion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 09 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t09" aria-labelledby="h09">
+    <div class="tech-head">
+      <span class="tech-num">09</span>
+      <h2 id="h09">Causal Loop Mapping</h2>
+      <p class="q">Where does this system fight itself?</p>
+    </div>
+    <div class="loop">
+      <b>more guitarists</b><span class="plus">→ +</span>
+      <b>more AdSense income</b><span class="plus">→ +</span>
+      <b>more load</b><span class="minus">→ −</span>
+      <b>site performance degrades</b><span class="minus">↺</span>
+    </div>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">Leverage point implied</span>
+      <p>Cheap-to-serve pages. If a song page is static and cacheable, growth raises income <em>without</em> the performance penalty. Revenue and speed stop pulling against each other.</p>
+    </div>
+  </section>
+
+  <!-- ── 10 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t10" aria-labelledby="h10">
+    <div class="tech-head">
+      <span class="tech-num">10</span>
+      <h2 id="h10">Morphological Analysis</h2>
+      <p class="q">Pull the product apart into parameters and choose a value for each.</p>
+    </div>
+    <table class="morph">
+      <caption>Each row is a dimension of the product. The values are the founder's choices, not options.</caption>
+      <tbody>
+        <tr>
+          <th scope="row">Catalog scope</th>
+          <td>All famous songs across <strong>Sinhala, Tamil, Hindi and English</strong><span class="newflag">Hindi is new — not in the original brief</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Who adds songs</th>
+          <td>Users should be able to submit songs too. The feeling to create is that <em>this is everyone's place, and sharing is loving music</em>.</td>
+        </tr>
+        <tr>
+          <th scope="row">On the phone</th>
+          <td>Lyrics with chords, shown clearly, with <strong>auto-scroll the user can speed up or slow down</strong>.</td>
+        </tr>
+        <tr>
+          <th scope="row">Money</th>
+          <td><span class="tag tag-decision">decision</span> AdSense only. No subscription, no paid tier.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 11 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t11" aria-labelledby="h11">
+    <div class="tech-head">
+      <span class="tech-num">11</span>
+      <h2 id="h11">Laddering</h2>
+      <p class="q">And why does that matter? And why does <em>that</em> matter?</p>
+    </div>
+    <ol class="ladder">
+      <li>
+        <span class="rung">Rung one</span>
+        <p><span class="tag tag-idea">idea</span> If ad income grows, share it back with contributors through <strong>giveaways and a raffle draw</strong>. Ad revenue funds the contributor loop rather than only the owner.</p>
+      </li>
+      <li class="top">
+        <span class="rung">Top of the ladder</span>
+        <p>Give music lovers a genuinely good platform — <strong>and</strong> generate real AdSense income from it. Both goals stated openly, and held together.</p>
+      </li>
+    </ol>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">What the ladder revealed</span>
+      <p>The underlying need is a <strong>real revenue-earning product</strong>, not a hobby site. Every UX demand in this session serves that: good UX brings the traffic that pays.</p>
+    </div>
+  </section>
+
+  <!-- ── 12 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t12" aria-labelledby="h12">
+    <div class="tech-head">
+      <span class="tech-num">12</span>
+      <h2 id="h12">SCAMPER Method</h2>
+      <p class="q">Eliminate: what could you remove and still keep the weekly habit?</p>
+    </div>
+    <div class="cutlist">
+      <div class="cut"><span class="x">✕</span><span>The AI song analyser</span></div>
+      <div class="cut"><span class="x">✕</span><span>The guitar tuner</span></div>
+    </div>
+    <p style="margin-top:.9rem">Both can go, and guitarists would still come back.</p>
+    <div class="warnbox">
+      <span class="lbl">The founder just contradicted the founder</span>
+      <p>Five techniques ago those same two tools were the answer to "what if the library is empty?" Here they are the cut list. Tools are <strong>attractive but not load-bearing</strong>.</p>
+      <p style="margin:0">What actually holds the weight:</p>
+      <div class="keeps">
+        <span>the sheet</span><span>search</span><span>favourites</span><span>transpose</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 13 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t13" aria-labelledby="h13">
+    <div class="tech-head">
+      <span class="tech-num">13</span>
+      <h2 id="h13">Six Thinking Hats</h2>
+      <p class="q">Put on the black hat, then the red one.</p>
+    </div>
+    <div class="grid g2">
+      <div class="hat hat-black">
+        <span class="name">Black hat · what could go wrong</span>
+        <p>A mid-song failure kills the momentum, and it must <strong>never</strong> happen in this app. Momentum is the thing being protected.</p>
+      </div>
+      <div class="hat hat-red">
+        <span class="name">Red hat · what it feels like</span>
+        <p>People stick because the app does not frustrate them. <strong>Absence of friction is the loyalty mechanism</strong>, not features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 14 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t14" aria-labelledby="h14">
+    <div class="tech-head">
+      <span class="tech-num">14</span>
+      <h2 id="h14">Lotus Blossom</h2>
+      <p class="q">Put the moment in the centre. What has to be true around it?</p>
+    </div>
+    <div class="lotus">
+      <div class="petal">A PWA app on the phone</div>
+      <div class="petal">Quick access even on low internet speeds</div>
+      <div class="petal">The song actually present in the catalog</div>
+      <div class="petal">Keyword search that finds it fast</div>
+      <div class="core">play tonight</div>
+      <div class="petal">Transpose to the guitarist's own scale</div>
+    </div>
+    <div class="grid g2" style="margin-top:1.2rem">
+      <div class="note">
+        <span class="lbl">On the PWA</span>
+        <p>PWA is wanted for install and speed, <strong>not</strong> for offline. Offline was rejected separately, so the PWA is a fast shell over a live site.</p>
+      </div>
+      <div class="warnbox">
+        <span class="lbl">Tension noted</span>
+        <p>Low bandwidth is a hard requirement — and it sits directly against ad scripts on every page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 15 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t15" aria-labelledby="h15">
+    <div class="tech-head">
+      <span class="tech-num">15</span>
+      <h2 id="h15">Worst Possible Idea</h2>
+      <p class="q">Describe the worst possible version of this product.</p>
+    </div>
+    <div class="worst">
+      <p class="banner">Do not build this</p>
+      <p>Ads all over the screen, interrupting the song.</p>
+      <div class="fakeads" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p style="font-size:1rem;color:#f0cec5">The founder named <strong>their own revenue engine</strong> as the biggest threat to the product.</p>
+    </div>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">Why this matters</span>
+      <p>Ad discipline here is <strong>self-imposed</strong>, not a constraint someone else applied. AdSense is the only income and also the main way to ruin the app. That is a rare thing for a founder to say out loud about their own funding.</p>
+    </div>
+  </section>
+
+  <!-- ── 16 DREAM QUOTE ────────────────────────────────── -->
+  <section class="dream rv" id="t16" aria-labelledby="h16">
+    <div class="narrow">
+      <p class="kicker" style="text-align:center">Technique 16 · Disney Method · the dreamer</p>
+      <h2 id="h16" style="text-align:center;font-size:clamp(1.5rem,5vw,2.4rem);margin-bottom:1.6rem">What does someone say when they recommend it?</h2>
+      <figure style="margin:0">
+        <blockquote cite="the founder, in their own words">
+          <span class="machan">Hey machan,</span> now we don't need to worry. There is chordslanka.lk, it has all the songs we usually need, a community-updated database where we can see the latest songs, transpose, and the best autoscroll feature I have ever seen in any chords site or app.
+        </blockquote>
+        <figcaption>The founder's words, verbatim — the referral they want to overhear</figcaption>
+      </figure>
+
+      <div class="pitch4">
+        <div><b>One</b>It has the songs</div>
+        <div><b>Two</b>The community keeps it current</div>
+        <div><b>Three</b>Transpose</div>
+        <div><b>Four</b>Best-in-class autoscroll</div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.8rem">
+        <div class="note">
+          <span class="lbl">The product renamed itself here</span>
+          <p><span class="tag tag-decision">decision</span> The real product name is <strong>chordslanka.lk</strong>, not SongChords. It arrived inside a sentence about a friend, not in a naming exercise.</p>
+        </div>
+        <div class="note">
+          <span class="lbl">Autoscroll is the signature</span>
+          <p>This is the feature the founder wants to be famous for. Earlier discovery had treated autoscroll as a trap; the founder treats it as the thing people will name out loud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 17 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t17" aria-labelledby="h17">
+    <div class="tech-head">
+      <span class="tech-num">17</span>
+      <h2 id="h17">Starbursting</h2>
+      <p class="q">Who else is in this picture — and who is against you?</p>
+    </div>
+    <div class="star">
+      <div class="ray">
+        <b>Who else matters</b>
+        <p><span class="tag tag-idea">idea</span> The person searching for <strong>song lyrics, not chords</strong>. They arrive from search engines for the words alone, they never touch a guitar, and they are a large traffic source for ads.</p>
+      </div>
+      <div class="ray">
+        <b>Who is the threat</b>
+        <p><span class="tag tag-idea">idea</span> Other similar site owners — local competitors for the same search traffic.</p>
+      </div>
+      <div class="ray missing" style="grid-column:1/-1">
+        <b>Who the founder did not name</b>
+        <p>Music publishers. Rights holders. Google policy review. All three can remove the site or the ad account, and none of them came up as actors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 18 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t18" aria-labelledby="h18">
+    <div class="tech-head">
+      <span class="tech-num">18</span>
+      <h2 id="h18">How Might We</h2>
+      <p class="q">Of everything on the table, which one is version one?</p>
+    </div>
+    <div class="hmw">
+      <span class="lbl">The chosen question for version one</span>
+      <p>How might we make <strong>5,000 scanned sheets</strong> searchable — without typing them all by hand?</p>
+    </div>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">What the choice says</span>
+      <p>Offered UX, ads and community, the founder picked the <strong>ingestion pipeline</strong> as the bet. Conversion is the gate to everything else.</p>
+    </div>
+  </section>
+
+  <!-- ── 19 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t19" aria-labelledby="h19">
+    <div class="tech-head">
+      <span class="tech-num">19</span>
+      <h2 id="h19">Job to Be Done</h2>
+      <p class="q">In the most common real situation, what is the user hiring this for?</p>
+    </div>
+    <p class="jtbd">The job is to <mark>get through a song at a gathering</mark>.<br>The chords are only the means to that.</p>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">Consequence</span>
+      <p>The primary job is <strong>social, not educational</strong>. LEARN, PRACTICE and MASTERED matter less than surviving a song in front of people.</p>
+    </div>
+  </section>
+
+  <!-- ── 20 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t20" aria-labelledby="h20">
+    <div class="tech-head">
+      <span class="tech-num">20</span>
+      <h2 id="h20">Empathy Map</h2>
+      <p class="q">Forget what they say. What do they actually <em>do</em>?</p>
+    </div>
+    <div class="empathy">
+      <div class="live"><b>Does · 1</b>Picks up the phone or laptop</div>
+      <div class="live"><b>Does · 2</b>Googles the song name</div>
+      <div class="live"><b>Does · 3</b>Opens whatever ranks first</div>
+      <div class="live"><b>Does · 4</b>Plays</div>
+    </div>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">Entry is Google, not the site</span>
+      <p>Our site must <em>be</em> that first result. Homepage design matters far less than the song page ranking and loading fast from a cold search.</p>
+    </div>
+  </section>
+
+  <!-- ── 21 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t21" aria-labelledby="h21">
+    <div class="tech-head">
+      <span class="tech-num">21</span>
+      <h2 id="h21">Backcasting</h2>
+      <p class="q">Work backwards. What is the move this month?</p>
+    </div>
+    <div class="collide">
+      <div class="plan">
+        <p style="margin:0"><span class="tag tag-decision">chosen bet (t18)</span><br>Convert 5,000 scanned sheets.</p>
+      </div>
+      <div class="bang" aria-hidden="true">✳ collision ✳</div>
+      <div class="plan">
+        <p style="margin:0"><span class="tag tag-idea">chosen first move</span><br>Enable Google AdSense.</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem">AdSense approval needs real indexed content. The two compete for the same month.</p>
+    <div class="resolved">
+      <b>Resolved in the room</b>
+      <p>The sheets go first. Convert and publish the catalog, <strong>then</strong> enable AdSense on top of real content.</p>
+    </div>
+  </section>
+
+  <!-- ── 22 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t22" aria-labelledby="h22">
+    <div class="tech-head">
+      <span class="tech-num">22</span>
+      <h2 id="h22">TRIZ Contradiction</h2>
+      <p class="q">You need ads, and ads ruin it. Both, without compromise.</p>
+    </div>
+    <div class="poles">
+      <div class="pole"><b>Requirement</b><p>AdSense is the only income. It has to be on the site.</p></div>
+      <div class="pole"><b>Opposite requirement</b><p>Nothing may interrupt the player mid-song.</p></div>
+    </div>
+    <div class="adzone">
+      <div class="yes-ads"><b>Ads live here</b>Browse, search, discovery — everything <strong>before</strong> the song opens.</div>
+      <div class="no-ads"><b>Ads never live here</b>The open sheet. Once a song is selected, nothing interrupts the user.</div>
+    </div>
+    <div class="note" style="margin-top:1.2rem">
+      <span class="lbl">A clean rule fell out of it</span>
+      <p>Monetize the <strong>journey to the song</strong>, never the song itself.</p>
+    </div>
+  </section>
+
+  <!-- ── 23 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t23" aria-labelledby="h23">
+    <div class="tech-head">
+      <span class="tech-num">23</span>
+      <h2 id="h23">Fishbone Diagram</h2>
+      <p class="q">A user finds wrong chords on a page. Where did that come from?</p>
+    </div>
+    <div class="fish">
+      <div class="bone">
+        <b>Cause</b>
+        <p>Wrong chords come from the source that was extracted. The error is inherited from whoever made the original sheet — not introduced by us.</p>
+      </div>
+      <div class="bone">
+        <b>Consequence</b>
+        <p>The 5,000-sheet bank carries <strong>unknown accuracy</strong>. Conversion copies both the chords and the mistakes.</p>
+      </div>
+      <div class="bone">
+        <b>Which is why</b>
+        <p>The suggest-a-correction path from experienced players — drawn out back in technique 02 — is not a nicety. It is the only repair mechanism the product has.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 24 ────────────────────────────────────────────── -->
+  <section class="wrap tech rv" id="t24" aria-labelledby="h24">
+    <div class="tech-head">
+      <span class="tech-num">24</span>
+      <h2 id="h24">Build on What Works</h2>
+      <p class="q">What is already working, that you can build on?</p>
+    </div>
+    <p><span class="tag tag-idea">idea</span> There are many Sinhala chord sites already, and the founder believes their main income is AdSense. <strong>The model is proven locally</strong> — and the founder wants to out-earn them.</p>
+    <p><span class="tag tag-question">the founder asked directly</span> How do we earn more profit from AdSense on this kind of site?</p>
+
+    <aside class="research" aria-labelledby="res">
+      <span class="stamp">↗ External research — not the founder's ideas</span>
+      <h3 id="res">What was looked up, in answer to that question</h3>
+
+      <div class="rpm">
+        <div class="lo">
+          <b>Sri Lankan audience, reported</b>
+          <span class="fig">$1 – $3 RPM</span>
+        </div>
+        <div>
+          <b>Same content, US / UK / CA / AU readers</b>
+          <span class="fig">$5 – $25 RPM</span>
+        </div>
+      </div>
+
+      <ul>
+        <li>Music is an entry-level AdSense niche — roughly <strong>$4 to $10 RPM worldwide</strong>, driven by about 1.2% CTR and $0.35 CPC. Country mix matters more than niche. Local-only traffic caps earnings hard.</li>
+        <li>Google Publisher Policies ban content that infringes copyright, and publishers are responsible for <strong>user-generated content</strong> on ad-bearing pages. Reproducing full lyrics without a reprint licence is the stated approval and suspension risk.</li>
+        <li>AdSense guidance for music sites warns against copied lyrics, thin pages, ads beside players, and CTR above about 2%, which can look like accidental clicks.</li>
+        <li>Mediavine Journey now accepts sites from about <strong>1,000 monthly sessions</strong>; Ezoic requires about <strong>250,000 monthly users</strong> for new publishers. A higher-paying network later is a real lever — AdSense need not be permanent.</li>
+      </ul>
+
+      <p class="caveat"><strong>Implication for profit:</strong> the levers are audience country mix, pages per session, original written content around the songs, and page speed — <em>not</em> ad density. These figures are reported ranges from external sources, brought into the session to answer a direct question. Everything else on this page came out of the founder.</p>
+    </aside>
+  </section>
+
+  <!-- ── 25 / SYNTHESIS ────────────────────────────────── -->
+  <section class="synth rv" id="t25" aria-labelledby="h25">
+    <div class="wrap">
+      <p class="kicker" style="text-align:center">Technique 25 · Scenario Cross · the synthesis</p>
+      <h2 id="h25">Five things the session was actually about</h2>
+      <p class="lead">Everything above was the founder talking. These five are what all of it adds up to when you lay the answers next to each other.</p>
+
+      <article class="sy">
+        <span class="n">Synthesis 01</span>
+        <h3>The missing feature the founder described without ever naming it</h3>
+        <p>The Five Whys root cause was <strong>experience</strong> — only a pro can catch a key a singer has already started in. Original-key default, plus transpose, plus that root cause, add up to a <strong>key-catching helper</strong> that tells the player which way to move. Nothing in the feature list does this yet. It is the one place the product can replace years of ear training.</p>
+      </article>
+
+      <article class="sy">
+        <span class="n">Synthesis 02</span>
+        <h3>The cut list is more truthful than the fallback</h3>
+        <p>The AI analyser and tuner are what the founder reached for when the catalog vanished — but the founder also named them as removable without losing the weekly habit. <strong>Catalog, search, favourites, transpose and autoscroll are load-bearing. The tools are not.</strong></p>
+      </article>
+
+      <article class="sy">
+        <span class="n">Synthesis 03</span>
+        <h3>Two users, only one of them urgent</h3>
+        <p>Favourites and collections serve the returning user. But the emotionally urgent moment is <strong>the gathering, entered from a Google search</strong>. Song-page ranking and first-load speed serve that moment; favourites do not. Both worth building — only one urgent.</p>
+      </article>
+
+      <article class="sy tension">
+        <span class="n">Synthesis 04 · the core tension</span>
+        <h3>The differentiator is also the lowest-paying and highest-risk content</h3>
+        <p>Local Sinhala and Tamil repertoire is what makes this site worth existing. It is also the content that earns least and risks most.</p>
+        <div class="tension-scale">
+          <div class="pan">
+            <b>What makes it special</b>
+            Local Sinhala and Tamil repertoire — the reason anyone would choose this site over a global one.
+          </div>
+          <div class="vs" aria-hidden="true">against</div>
+          <div class="pan">
+            <b>What it costs</b>
+            Reportedly $1–$3 RPM against $5–$25 for Western traffic — and full lyrics are the exact content Google publisher policy names, with the publisher liable for user submissions too.
+          </div>
+        </div>
+      </article>
+
+      <article class="sy">
+        <span class="n">Synthesis 05</span>
+        <h3>The one move that survives every future</h3>
+        <p><strong>Original written content around each song.</strong> It makes pages defensible if AdSense refuses, lifts pages per session if traffic stays local, ranks in English if traffic goes international, and creates ad inventory if approved. It was the only move that held up across all four scenario-cross futures.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── chosen direction ──────────────────────────────── -->
+  <section class="wrap tech rv" aria-labelledby="dir">
+    <div class="tech-head">
+      <span class="tech-num">→</span>
+      <h2 id="dir">The chosen direction</h2>
+      <p class="q">Decided in the room, at the end.</p>
+    </div>
+    <div class="grid g2">
+      <div class="paper tilt-l">
+        <p class="meta">The product</p>
+        <p style="font-size:1.35rem;font-weight:700;margin:.3rem 0 .6rem">chordslanka.lk</p>
+        <p style="margin:0">Word-of-mouth pitch: it has the songs, the community keeps it current, transpose, and the best autoscroll in any chords site or app.</p>
+      </div>
+      <div class="paper tilt-r">
+        <p class="meta">The job, and the loyalty mechanism</p>
+        <p style="margin:.3rem 0 .6rem"><strong>Primary job is social:</strong> get through a song at a gathering.</p>
+        <p style="margin:0"><strong>Retention is the absence of frustration.</strong> Not features.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap tech rv" aria-labelledby="seq">
+    <div class="tech-head">
+      <span class="tech-num">1·2·3</span>
+      <h2 id="seq">The chosen sequence</h2>
+      <p class="q">In this order, because AdSense approval needs real indexed content.</p>
+    </div>
+    <ol class="seq">
+      <li>
+        <b>Solve the pipeline</b>
+        <p>Convert 5,000 JPEG and PDF sheets into structured, searchable text.</p>
+      </li>
+      <li>
+        <b>Publish pages that rank and load fast</b>
+        <p>Song pages that win a cold Google search and open immediately.</p>
+      </li>
+      <li>
+        <b>Then enable AdSense</b>
+        <p>On discover surfaces only. Never on an open song.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap tech rv" aria-labelledby="cons">
+    <div class="tech-head">
+      <span class="tech-num">▣</span>
+      <h2 id="cons">The chosen constraints</h2>
+      <p class="q">What the founder locked down, including the things they locked out.</p>
+    </div>
+    <ul class="rules">
+      <li><span class="mark">✓</span><span><strong>PWA</strong> for speed and install</span></li>
+      <li class="no"><span class="mark">✕</span><span><strong>No offline.</strong> Offline use earns nothing</span></li>
+      <li><span class="mark">✓</span><span><strong>AdSense only.</strong> No subscription, no paid tier</span></li>
+      <li class="no"><span class="mark">✕</span><span><strong>No ads once the song is open.</strong> Ads live only before it</span></li>
+      <li><span class="mark">✓</span><span><strong>Original key by default</strong></span></li>
+      <li><span class="mark">✓</span><span><strong>Full readable sheet</strong>, seen at once</span></li>
+      <li><span class="mark">✓</span><span><strong>Autoscroll with speed control</strong> — the signature feature</span></li>
+      <li><span class="mark">✓</span><span><strong>Favourites and themed collections</strong></span></li>
+      <li style="grid-column:1/-1"><span class="mark">✓</span><span><strong>User submissions</strong>, with a suggest-a-correction path instead of a complaint channel</span></li>
+    </ul>
+  </section>
+
+  <!-- ── scraps ────────────────────────────────────────── -->
+  <section class="wrap tech rv" aria-labelledby="scraps">
+    <div class="tech-head">
+      <span class="tech-num">✂</span>
+      <h2 id="scraps">Scraps from the margins</h2>
+      <p class="q">The odd, small and half-buried things that are easy to lose — and probably shouldn't be.</p>
+    </div>
+    <div class="scraps">
+      <article class="paper scrap tilt-l">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="meta">From the Five Whys</p>
+        <h3>Collections by occasion, not by genre</h3>
+        <p>Users build their own lists for the moments they actually play in:</p>
+        <div class="collections">
+          <span>wedding songs</span><span>trip songs</span><span>love songs</span><span>songs about mother and father</span>
+        </div>
+      </article>
+
+      <article class="paper scrap tilt-r">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="meta">From Laddering</p>
+        <h3>A raffle draw for contributors</h3>
+        <p>If ad income grows, share it back through giveaways and a raffle draw. The ad revenue funds the contributor loop — not only the owner.</p>
+      </article>
+
+      <article class="paper scrap tilt-r">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="meta">From Starbursting</p>
+        <h3>The person who can't play at all</h3>
+        <p>Someone searching for <strong>lyrics, not chords</strong>. They arrive from a search engine for the words alone and never touch a guitar — and they are a large traffic source for ads.</p>
+      </article>
+
+      <article class="paper scrap tilt-l">
+        <span class="pin" aria-hidden="true"></span>
+        <p class="meta">From Worst Possible Idea</p>
+        <h3>The founder named their own ad revenue as the worst product</h3>
+        <p>Asked for the worst possible version, the answer was ads all over the screen, interrupting the song. The only income stream is also the named threat. Every ad rule in this session follows from that one admission.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── risks ─────────────────────────────────────────── -->
+  <section class="wrap tech rv" aria-labelledby="risks">
+    <div class="tech-head">
+      <span class="tech-num">!</span>
+      <h2 id="risks">Open risks the founder did not name</h2>
+      <p class="q">Recorded here because nobody in the room raised them.</p>
+    </div>
+    <div class="risks">
+      <div class="risk">
+        <b>Music publishers and rights holders</b>
+        <p>Can end the site.</p>
+      </div>
+      <div class="risk">
+        <b>Google policy review itself</b>
+        <p>Can end the ad account.</p>
+      </div>
+      <div class="risk">
+        <b>Inherited accuracy of the 5,000 sheets</b>
+        <p>Wrong chords come from the extracted source, and conversion copies the mistakes along with the chords.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="narrow">
+    <div class="next">
+      <b>Next artifact</b>
+      <p>A product brief, then a PRD. The ingestion pipeline deserves its own technical spike before either.</p>
+    </div>
+    <div class="lamp-off" aria-hidden="true"></div>
+    <p class="sig">Facilitated session · 25 techniques · 27 September 2026<br>chordslanka.lk · every idea above belongs to the founder</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* progress rail */
+  var rail = document.getElementById("rail");
+  function tick(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    rail.style.width = (p * 100).toFixed(2) + "%";
+  }
+  window.addEventListener("scroll", tick, {passive:true});
+  window.addEventListener("resize", tick);
+  tick();
+
+  /* reveal on scroll */
+  var items = document.querySelectorAll(".rv");
+  if (reduce || !("IntersectionObserver" in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add("in");
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, {rootMargin: "0px 0px -8% 0px", threshold: 0.06});
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+
+  /* five whys: reveal the chain link by link */
+  var chain = document.querySelectorAll(".chain > li");
+  if (chain.length) {
+    for (var k = 0; k < chain.length; k++) {
+      chain[k].style.opacity = "0";
+      chain[k].style.transform = "translateY(14px)";
+      chain[k].style.transition = "opacity .55s ease " + (k * 0.13) + "s, transform .55s ease " + (k * 0.13) + "s";
+    }
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var lis = e.target.querySelectorAll(".chain > li");
+        for (var n = 0; n < lis.length; n++) { lis[n].style.opacity = "1"; lis[n].style.transform = "none"; }
+        cio.unobserve(e.target);
+      });
+    }, {threshold: 0.12});
+    var band = document.getElementById("t05");
+    if (band) cio.observe(band);
+  }
+})();
+</script>
+
+</body>
+</html>

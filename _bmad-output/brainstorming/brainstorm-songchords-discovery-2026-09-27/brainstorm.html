@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SongChords — Discovery Keepsake · 2026-09-27</title>
+<style>
+  :root {
+    --lamp: #f4c96a;
+    --lamp-dim: #c4892a;
+    --ember: #ff6b3d;
+    --wire: #5a6a7a;
+    --fret: #3a4550;
+    --ink: #0a0c10;
+    --panel: #12161c;
+    --panel-2: #1a2028;
+    --paper: #e8e0d0;
+    --paper-dim: #b8b0a0;
+    --chord: #7ec8ff;
+    --ok: #6ee7a8;
+    --warn: #f5a623;
+    --bad: #ff6b7a;
+    --mute: #8a949e;
+    --line: rgba(244, 201, 106, 0.18);
+    --glow: rgba(244, 201, 106, 0.35);
+    --radius: 4px;
+    --pad: clamp(1rem, 3vw, 2rem);
+    --max: 52rem;
+    --font: Georgia, "Times New Roman", "Noto Serif", serif;
+    --mono: "Courier New", Courier, ui-monospace, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(244, 201, 106, 0.12), transparent 55%),
+      radial-gradient(ellipse 40% 30% at 85% 20%, rgba(126, 200, 255, 0.06), transparent),
+      linear-gradient(180deg, #080a0e 0%, var(--ink) 40%, #0d1016 100%);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* Fret wires as page texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(12.5% - 1px),
+        rgba(90, 106, 122, 0.07) calc(12.5% - 1px),
+        rgba(90, 106, 122, 0.07) 12.5%
+      );
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  a { color: var(--chord); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--lamp);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: var(--pad);
+  }
+
+  /* —— HEADER: music-stand night —— */
+  .stand {
+    padding: clamp(2.5rem, 8vw, 4.5rem) 0 2rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2.5rem;
+  }
+  .stand-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lamp-dim);
+    margin: 0 0 1.25rem;
+  }
+  .stand h1 {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
+    line-height: 1.05;
+    margin: 0 0 0.35rem;
+    color: var(--lamp);
+    text-shadow: 0 0 40px var(--glow);
+  }
+  .stand .subtitle {
+    font-family: var(--font);
+    font-style: italic;
+    font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+    color: var(--paper-dim);
+    margin: 0 0 1.5rem;
+    max-width: 28em;
+  }
+  .chord-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--chord);
+    margin-bottom: 1.25rem;
+  }
+  .chord-row span {
+    position: relative;
+    padding-bottom: 0.35rem;
+  }
+  .chord-row span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 8px var(--ember);
+    transform: translateX(-50%);
+  }
+  .brief {
+    margin: 0;
+    color: var(--mute);
+    font-size: 0.92rem;
+    max-width: 36em;
+  }
+  .brief strong { color: var(--paper); font-weight: 600; }
+
+  nav.toc {
+    margin: 2rem 0 3rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--fret);
+    border-bottom: 1px solid var(--fret);
+  }
+  nav.toc h2 {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--wire);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 0.35rem 1rem;
+    font-size: 0.82rem;
+  }
+  nav.toc a {
+    text-decoration: none;
+    color: var(--paper-dim);
+    border-left: 2px solid var(--fret);
+    padding-left: 0.5rem;
+    display: block;
+  }
+  nav.toc a:hover { color: var(--lamp); border-color: var(--lamp); }
+
+  /* —— SHARED SECTION SHELL —— */
+  section.tech {
+    margin: 0 0 3.5rem;
+    padding-top: 0.5rem;
+  }
+  .tech-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .tech-label .num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--lamp-dim);
+    letter-spacing: 0.1em;
+  }
+  .tech-label h2 {
+    font-family: var(--font);
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+    font-weight: 400;
+    margin: 0;
+    color: var(--paper);
+  }
+  .tech-lede {
+    font-size: 0.95rem;
+    color: var(--mute);
+    margin: 0 0 1.25rem;
+    max-width: 38em;
+  }
+
+  /* —— 1 ASSUMPTION REVERSAL: flipped cards —— */
+  .reverse-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .flip {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.5rem;
+    align-items: stretch;
+    background: var(--panel);
+    border: 1px solid var(--fret);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (max-width: 640px) {
+    .flip { grid-template-columns: 1fr; }
+    .flip .arrow { transform: rotate(90deg); justify-self: center; padding: 0.15rem 0; }
+  }
+  .flip .was, .flip .now {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+  }
+  .flip .was {
+    background: #1a1214;
+    color: var(--bad);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255, 107, 122, 0.45);
+  }
+  .flip .now {
+    background: #0f1a16;
+    color: var(--ok);
+  }
+  .flip .arrow {
+    display: flex;
+    align-items: center;
+    color: var(--lamp);
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    padding: 0 0.25rem;
+  }
+  .flip .tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    opacity: 0.7;
+    text-decoration: none;
+  }
+
+  /* —— 2 JOB TO BE DONE: hire slips —— */
+  .hire-rail {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hire-slip {
+    flex: 0 0 min(85vw, 16.5rem);
+    scroll-snap-align: start;
+    background: linear-gradient(160deg, #2a2418 0%, #1a1610 100%);
+    border: 1px dashed var(--lamp-dim);
+    border-radius: 2px;
+    padding: 1rem 1.1rem;
+    min-height: 9rem;
+  }
+  .hire-slip .hire-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: var(--lamp);
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+  }
+  .hire-slip p {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: var(--paper);
+  }
+  .hire-slip.later {
+    opacity: 0.55;
+    border-style: solid;
+    border-color: var(--wire);
+  }
+  .hire-slip.later .hire-label { color: var(--mute); }
+
+  /* —— 3 ONE FEATURE ONLY: phone frame —— */
+  .phone-stage {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 720px) {
+    .phone-stage { grid-template-columns: minmax(0, 17rem) 1fr; align-items: start; }
+  }
+  .phone {
+    margin: 0 auto;
+    width: min(100%, 17rem);
+    background: #050608;
+    border: 3px solid #2a3038;
+    border-radius: 1.4rem;
+    padding: 0.65rem 0.55rem 1rem;
+    box-shadow:
+      0 0 0 1px #111,
+      0 20px 50px rgba(0,0,0,0.55),
+      inset 0 0 30px rgba(244, 201, 106, 0.04);
+  }
+  .phone-notch {
+    width: 35%;
+    height: 0.35rem;
+    background: #1a1e24;
+    border-radius: 999px;
+    margin: 0 auto 0.65rem;
+  }
+  .phone-screen {
+    background: #0c0e12;
+    border-radius: 0.5rem;
+    padding: 0.85rem 0.7rem 1.1rem;
+    min-height: 18rem;
+    font-family: var(--mono);
+  }
+  .phone-screen .song-title {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    color: var(--lamp);
+    margin: 0 0 0.15rem;
+  }
+  .phone-screen .artist {
+    font-size: 0.68rem;
+    color: var(--mute);
+    margin: 0 0 1rem;
+  }
+  .play-line {
+    margin: 0 0 0.85rem;
+    line-height: 1.35;
+  }
+  .play-line .ch {
+    display: block;
+    color: var(--chord);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    min-height: 1.1em;
+  }
+  .play-line .ly {
+    display: block;
+    color: var(--paper);
+    font-size: 0.92rem;
+    font-family: var(--sans);
+  }
+  .play-line.current .ly {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 12px rgba(255,255,255,0.15);
+  }
+  .play-line.preview { opacity: 0.4; }
+  .phone-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--fret);
+    font-size: 0.65rem;
+    color: var(--lamp-dim);
+  }
+  .phone-controls span {
+    background: var(--panel-2);
+    padding: 0.35rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--fret);
+  }
+  .feature-ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .feature-ladder li {
+    list-style: none;
+    padding: 0.75rem 0 0.75rem 1rem;
+    border-left: 3px solid var(--fret);
+    margin: 0;
+  }
+  .feature-ladder { margin: 0; padding: 0; }
+  .feature-ladder li.primary {
+    border-color: var(--lamp);
+    background: linear-gradient(90deg, rgba(244,201,106,0.08), transparent);
+  }
+  .feature-ladder li.out {
+    border-color: var(--bad);
+    opacity: 0.7;
+  }
+  .feature-ladder .rank {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--lamp);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .feature-ladder li.out .rank { color: var(--bad); }
+  .feature-ladder p { margin: 0; font-size: 0.9rem; }
+
+  /* —— 4 CRANK TO 11: stage —— */
+  .stage {
+    background: #050507;
+    border: 1px solid #222;
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .stage::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    width: 60%;
+    height: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse, rgba(244,201,106,0.2), transparent 70%);
+    pointer-events: none;
+  }
+  .stage-line {
+    position: relative;
+    text-align: center;
+    font-family: var(--font);
+    font-size: clamp(1.35rem, 5vw, 1.85rem);
+    color: #fff;
+    margin: 0 0 0.35rem;
+    z-index: 1;
+  }
+  .stage-chords {
+    position: relative;
+    text-align: center;
+    font-family: var(--mono);
+    color: var(--chord);
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+  }
+  .stage-next {
+    text-align: center;
+    color: var(--mute);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.55;
+  }
+  .dial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .dial-chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(244,201,106,0.25);
+    padding: 0.55rem 0.65rem;
+    font-size: 0.78rem;
+    color: var(--paper-dim);
+    border-radius: 2px;
+  }
+  .dial-chip strong {
+    display: block;
+    color: var(--lamp);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  /* —— 5 KILL THE CROWN: scratched jewels —— */
+  .jewels {
+    display: grid;
+    gap: 0.65rem;
+  }
+  .jewel {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border-left: 4px solid var(--bad);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .jewel.keep {
+    border-left-color: var(--ok);
+  }
+  .jewel .x {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--bad);
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+  .jewel.keep .x { color: var(--ok); }
+  .jewel h3 {
+    margin: 0 0 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--paper);
+  }
+  .jewel p { margin: 0; font-size: 0.85rem; color: var(--mute); }
+
+  /* —— 6 REVERSE BRAINSTORM: failure console —— */
+  .fail-console {
+    background: #0a0808;
+    border: 1px solid #3a2020;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    padding: 0.75rem 0;
+  }
+  .fail-console .bar {
+    padding: 0 1rem 0.65rem;
+    border-bottom: 1px solid #3a2020;
+    color: var(--bad);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+  .fail-row {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid rgba(58, 32, 32, 0.5);
+    color: var(--paper-dim);
+  }
+  .fail-row:last-child { border-bottom: none; }
+  .fail-row .code { color: var(--bad); }
+  .fail-row:hover { background: rgba(255, 107, 122, 0.06); }
+
+  /* —— 7 CROSS-POLLINATION: graft tags —— */
+  .grafts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .graft {
+    display: grid;
+    grid-template-columns: minmax(6rem, 9rem) 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.7rem 0;
+    border-bottom: 1px dotted var(--fret);
+  }
+  @media (max-width: 520px) {
+    .graft { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+  .graft .source {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ember);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .graft p { margin: 0; font-size: 0.9rem; color: var(--paper-dim); }
+
+  /* —— 8 FUSION CUISINE: script ribbons —— */
+  .fusion {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .script-ribbon {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--fret);
+    border-radius: var(--radius);
+    padding: 1rem;
+    overflow: hidden;
+  }
+  .script-ribbon .glyph {
+    font-family: var(--font);
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--lamp);
+    width: 2.5rem;
+    text-align: center;
+  }
+  .script-ribbon h3 {
+    margin: 0 0 0.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .script-ribbon p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--mute);
+  }
+  .fusion-notes {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .fusion-notes li {
+    font-size: 0.88rem;
+    color: var(--paper-dim);
+    padding-left: 1rem;
+    border-left: 2px solid var(--chord);
+  }
+
+  /* —— 9 CONSTRAINT MAPPING: fretboard constraints —— */
+  .fretboard {
+    background: linear-gradient(180deg, #1c1610, #12100c);
+    border: 1px solid #3a3020;
+    border-radius: var(--radius);
+    padding: 1rem 0.75rem;
+    overflow-x: auto;
+  }
+  .fretboard-title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lamp-dim);
+    margin: 0 0 0.75rem;
+    padding: 0 0.25rem;
+  }
+  .strings {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 28rem;
+  }
+  .string-row {
+    display: grid;
+    grid-template-columns: 6.5rem repeat(4, 1fr);
+    align-items: center;
+    border-bottom: 1px solid rgba(90, 106, 122, 0.35);
+    min-height: 2.6rem;
+  }
+  .string-row:last-child { border-bottom: none; }
+  .string-name {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--wire);
+    padding: 0.35rem 0.4rem;
+  }
+  .fret-cell {
+    padding: 0.35rem 0.4rem;
+    font-size: 0.72rem;
+    color: var(--paper-dim);
+    border-left: 1px solid rgba(90, 106, 122, 0.25);
+    line-height: 1.3;
+  }
+  .fret-cell.hard { color: var(--warn); }
+  .fret-cell.dissolve { color: var(--ok); }
+
+  /* —— 10 TRIZ: contradiction splits —— */
+  .triz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .contradiction {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--panel);
+    border: 1px solid var(--fret);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 600px) {
+    .contradiction {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .contradiction .resolve {
+      grid-column: 1 / -1;
+    }
+  }
+  .contradiction .pole {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+  .contradiction .pole.a {
+    background: #1a1520;
+    color: #c4b0e0;
+    border-bottom: 1px solid var(--fret);
+  }
+  .contradiction .pole.b {
+    background: #15201a;
+    color: #a0d4b8;
+    border-bottom: 1px solid var(--fret);
+  }
+  @media (min-width: 600px) {
+    .contradiction .pole.a { border-bottom: none; border-right: 1px solid var(--fret); }
+    .contradiction .pole.b { border-bottom: none; }
+  }
+  .contradiction .pole em {
+    display: block;
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.25rem;
+  }
+  .contradiction .resolve {
+    padding: 0.7rem 1rem;
+    background: #0e1218;
+    font-size: 0.85rem;
+    color: var(--lamp);
+  }
+  .contradiction .resolve::before {
+    content: "→ ";
+    color: var(--ember);
+  }
+
+  /* —— 11 UTOPIA / DYSTOPIA —— */
+  .split-screen {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid var(--fret);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 640px) {
+    .split-screen { grid-template-columns: 1fr 1fr; }
+  }
+  .utopia, .dystopia {
+    padding: 1.1rem 1rem 1.25rem;
+    min-height: 100%;
+  }
+  .utopia {
+    background: linear-gradient(180deg, #0e1a18, #0a1210);
+    border-bottom: 1px solid var(--fret);
+  }
+  .dystopia {
+    background: linear-gradient(180deg, #1a0e10, #120a0c);
+  }
+  @media (min-width: 640px) {
+    .utopia { border-bottom: none; border-right: 1px solid var(--fret); }
+  }
+  .utopia h3, .dystopia h3 {
+    margin: 0 0 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .utopia h3 { color: var(--ok); }
+  .dystopia h3 { color: var(--bad); }
+  .utopia ul, .dystopia ul {
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+    font-size: 0.85rem;
+    color: var(--paper-dim);
+  }
+  .utopia li, .dystopia li { margin-bottom: 0.45rem; }
+  .survive {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #0a0c10;
+    border: 1px solid var(--lamp-dim);
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    color: var(--lamp);
+  }
+  .survive strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 0.35rem;
+    font-weight: 400;
+  }
+
+  /* —— 12 BACKCASTING: timeline —— */
+  .timeline {
+    position: relative;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--lamp-dim);
+    margin-left: 0.35rem;
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.35rem;
+    padding-left: 0.85rem;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -1.55rem;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--lamp);
+    box-shadow: 0 0 10px var(--glow);
+  }
+  .tl-item.now::before { background: var(--ember); box-shadow: 0 0 10px var(--ember); }
+  .tl-item .when {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lamp);
+    margin: 0 0 0.25rem;
+  }
+  .tl-item p { margin: 0; font-size: 0.9rem; color: var(--paper-dim); }
+
+  /* —— 13 EMPATHY MAP: people —— */
+  .people {
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 560px) {
+    .people { grid-template-columns: 1fr 1fr; }
+  }
+  .person {
+    background: var(--panel);
+    border: 1px solid var(--fret);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .person.wide {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #16120e, #12161c);
+    border-color: var(--lamp-dim);
+  }
+  .person .name {
+    font-family: var(--font);
+    font-size: 1.15rem;
+    color: var(--lamp);
+    margin: 0 0 0.15rem;
+  }
+  .person .role {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--mute);
+    letter-spacing: 0.06em;
+    margin: 0 0 0.65rem;
+  }
+  .person p { margin: 0; font-size: 0.88rem; color: var(--paper-dim); }
+  .person .felt {
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--fret);
+    font-size: 0.82rem;
+    color: var(--ember);
+    font-style: italic;
+  }
+
+  /* —— 14 MORPHOLOGICAL: matrix —— */
+  .morph {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .morph table {
+    width: 100%;
+    min-width: 32rem;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .morph th, .morph td {
+    border: 1px solid var(--fret);
+    padding: 0.55rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .morph th {
+    background: #1a2028;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lamp);
+    font-weight: 400;
+  }
+  .morph td { background: var(--panel); color: var(--paper-dim); }
+  .morph td.dim { color: var(--chord); font-family: var(--mono); font-size: 0.75rem; }
+  .morph-aside {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .morph-aside p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--mute);
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--wire);
+  }
+
+  /* —— 15 PROVOCATION: provocation posters —— */
+  .provos {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .provo {
+    position: relative;
+    padding: 1.1rem 1rem 1rem 1.25rem;
+    background: #141018;
+    border: 1px solid #3a2848;
+    border-radius: var(--radius);
+  }
+  .provo::before {
+    content: "?!";
+    position: absolute;
+    top: 0.65rem;
+    right: 0.85rem;
+    font-family: var(--font);
+    font-size: 1.5rem;
+    color: rgba(196, 160, 255, 0.35);
+    line-height: 1;
+  }
+  .provo .ask {
+    font-family: var(--font);
+    font-size: 1.05rem;
+    color: #d4c0f0;
+    margin: 0 0 0.5rem;
+    padding-right: 2rem;
+  }
+  .provo .keep {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--mute);
+  }
+  .provo .keep em { color: var(--ok); font-style: normal; }
+
+  /* —— 16 WORST POSSIBLE: inversion —— */
+  .worst-grid {
+    display: grid;
+    gap: 0.65rem;
+  }
+  .inversion {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--fret);
+  }
+  @media (min-width: 600px) {
+    .inversion { grid-template-columns: 1fr 1fr; }
+  }
+  .inversion .worst, .inversion .inverse {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+  }
+  .inversion .worst {
+    background: #1a1012;
+    color: var(--bad);
+  }
+  .inversion .inverse {
+    background: #101a14;
+    color: var(--ok);
+  }
+  .inversion .worst::before, .inversion .inverse::before {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    opacity: 0.75;
+  }
+  .inversion .worst::before { content: "Worst"; }
+  .inversion .inverse::before { content: "Inverse"; }
+
+  .roadmap {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .road-band {
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--fret);
+  }
+  .road-band h3 {
+    margin: 0 0 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .road-band p { margin: 0; font-size: 0.85rem; color: var(--paper-dim); }
+  .road-band.mvp { border-color: var(--lamp); background: rgba(244,201,106,0.06); }
+  .road-band.mvp h3 { color: var(--lamp); }
+  .road-band.next h3 { color: var(--chord); }
+  .road-band.later h3 { color: var(--mute); }
+  .road-band.exp h3 { color: var(--ember); }
+  .road-band.postpone {
+    border-style: dashed;
+    border-color: var(--bad);
+    opacity: 0.85;
+  }
+  .road-band.postpone h3 { color: var(--bad); }
+
+  /* —— SYNTHESIS CLIMAX —— */
+  .climax {
+    margin: 4rem 0 2rem;
+    padding: 2rem 0 0;
+    border-top: 2px solid var(--lamp);
+  }
+  .climax-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin: 0 0 0.75rem;
+  }
+  .climax h2 {
+    font-family: var(--font);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--lamp);
+    margin: 0 0 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 0 30px var(--glow);
+  }
+  .problem-box {
+    background: #0c0e12;
+    border: 2px solid var(--lamp);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.15rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 40px rgba(244, 201, 106, 0.12);
+  }
+  .problem-box .kicker {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lamp-dim);
+    margin: 0 0 0.5rem;
+  }
+  .problem-box p {
+    margin: 0;
+    font-family: var(--font);
+    font-size: clamp(1.05rem, 3vw, 1.25rem);
+    line-height: 1.45;
+    color: #fff;
+  }
+  .diff-sentence {
+    font-family: var(--font);
+    font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+    line-height: 1.4;
+    color: var(--chord);
+    margin: 0 0 2rem;
+    padding: 1rem 0 1rem 1rem;
+    border-left: 3px solid var(--chord);
+  }
+  .mvp-gate {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (min-width: 640px) {
+    .mvp-gate { grid-template-columns: 1fr 1fr; }
+  }
+  .gate-in, .gate-out {
+    padding: 1.1rem 1rem;
+    border-radius: var(--radius);
+  }
+  .gate-in {
+    background: #0e1a14;
+    border: 1px solid var(--ok);
+  }
+  .gate-out {
+    background: #1a1012;
+    border: 1px solid var(--bad);
+  }
+  .gate-in h3, .gate-out h3 {
+    margin: 0 0 0.65rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .gate-in h3 { color: var(--ok); }
+  .gate-out h3 { color: var(--bad); }
+  .gate-in ul, .gate-out ul {
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+    font-size: 0.88rem;
+    color: var(--paper-dim);
+  }
+  .gate-in li, .gate-out li { margin-bottom: 0.3rem; }
+
+  .insight-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 2rem;
+  }
+  .insight {
+    padding: 0.85rem 1rem;
+    background: var(--panel);
+    border-left: 3px solid var(--wire);
+    font-size: 0.9rem;
+    color: var(--paper-dim);
+  }
+  .insight .ik {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lamp-dim);
+    margin-bottom: 0.3rem;
+  }
+
+  .next-step {
+    background: linear-gradient(135deg, #1a1810, #12161c);
+    border: 1px solid var(--lamp-dim);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.15rem;
+    margin-bottom: 2rem;
+  }
+  .next-step h3 {
+    margin: 0 0 0.4rem;
+    font-family: var(--font);
+    font-size: 1.15rem;
+    color: var(--lamp);
+    font-weight: 400;
+  }
+  .next-step p { margin: 0; font-size: 0.9rem; color: var(--mute); }
+
+  footer.colophon {
+    border-top: 1px solid var(--fret);
+    padding: 1.5rem 0 3rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--wire);
+    letter-spacing: 0.04em;
+  }
+  footer.colophon p { margin: 0 0 0.35rem; }
+
+  /* buried odd ideas callout */
+  .buried {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px dashed var(--ember);
+    border-radius: var(--radius);
+    background: rgba(255, 107, 61, 0.05);
+  }
+  .buried h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    font-weight: 400;
+  }
+  .buried ul {
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+    font-size: 0.85rem;
+    color: var(--paper-dim);
+  }
+  .buried li { margin-bottom: 0.35rem; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="stand">
+      <p class="stand-meta">Brainstorm keepsake · 2026-09-27 · Autonomous discovery</p>
+      <h1>SongChords</h1>
+      <p class="subtitle">A phone on a music stand. Night practice. The song you have to play tonight.</p>
+      <div class="chord-row" aria-hidden="true">
+        <span>Em</span><span>C</span><span>G</span><span>D</span>
+      </div>
+      <p class="brief">
+        Working name <strong>SongChords</strong>. Initial market Sri Lanka.
+        Languages <strong>Sinhala, Tamil, English</strong>.
+        Goal: define the product before production code — for guitarists playing on a phone.
+        Stance: autonomous ideation. Greenfield discovery.
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="Techniques">
+      <h2>Techniques · sixteen frets</h2>
+      <ol>
+        <li><a href="#assumption-reversal">Assumption Reversal</a></li>
+        <li><a href="#jtbd">Job to Be Done</a></li>
+        <li><a href="#one-feature">One Feature Only</a></li>
+        <li><a href="#crank">Crank the Dial to 11</a></li>
+        <li><a href="#kill">Kill the Crown Jewel</a></li>
+        <li><a href="#reverse">Reverse Brainstorming</a></li>
+        <li><a href="#cross">Cross-Pollination</a></li>
+        <li><a href="#fusion">Fusion Cuisine</a></li>
+        <li><a href="#constraint">Constraint Mapping</a></li>
+        <li><a href="#triz">TRIZ Contradiction</a></li>
+        <li><a href="#utopia">Utopia vs Dystopia</a></li>
+        <li><a href="#backcast">Backcasting</a></li>
+        <li><a href="#empathy">Empathy Map</a></li>
+        <li><a href="#morph">Morphological Analysis</a></li>
+        <li><a href="#provo">Provocation</a></li>
+        <li><a href="#worst">Worst Possible Idea</a></li>
+        <li><a href="#synthesis">Synthesis</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="tech" id="assumption-reversal" aria-labelledby="ar-h">
+      <div class="tech-label">
+        <span class="num">01</span>
+        <h2 id="ar-h">Assumption Reversal</h2>
+      </div>
+      <p class="tech-lede">Flip what chord sites usually promise. The reversed side is the product stance.</p>
+      <div class="reverse-stack">
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Huge library, empty promise</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>A small set of perfectly playable Sri Lankan songs. Launch promise: songs you can finish, not songs we indexed.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>North star = catalog size</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>The product is the twenty minutes between opening the phone and getting through the chorus. Time-to-first-clean-chorus.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Capo is a primary control</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>Beginners want make this easier to sing. Capo is advanced disclosure of that job.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>One language setting for everything</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>UI language ≠ lyric language. Chrome follows the user. The song stays in its own script.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Open community publishing</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>Launch curated and verified. Community proposes a correction, not a new canonical sheet.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>AI extracts chords at scale</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>AI may draft behind a reviewer. Never the public source of truth.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Compete with Ultimate Guitar on English pop</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>The hole is the Sinhala or Tamil song a guitarist in Colombo has to play tonight.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Search by key / catalog metadata</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>On a bus: a fragment of a chorus, often Singlish — not musical key.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Account gates play</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>Play mode works logged out on first visit. Account is memory (key, capo, progress) — not the gate.</div>
+        </article>
+        <article class="flip">
+          <div class="was"><span class="tag">Assumed</span>Teachers first / diagrams docked forever</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="now"><span class="tag">Reversed</span>First payer: hobbyist wanting offline and no ads while playing. Diagrams are a peek once the song starts. Difficulty = this player × this song.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="tech" id="jtbd" aria-labelledby="jtbd-h">
+      <div class="tech-label">
+        <span class="num">02</span>
+        <h2 id="jtbd-h">Job to Be Done</h2>
+      </div>
+      <p class="tech-lede">Swipe the hire slips. What people actually hire SongChords to do.</p>
+      <div class="hire-rail" tabindex="0" role="list" aria-label="Jobs to be done">
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Accompany a family gathering in a key the singer can actually reach.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Learn one Sinhala song this week without a teacher beside you.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>List songs playable with only the open chords already in your hands.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Keep your place when eyes leave the fretboard and come back.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Trust that these chords match the recording people in the room know.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Remember the capo and key you settled on last time for this exact song.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Find another local song that uses the progression you just got under your fingers.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Isolate the G-to-C change that keeps breaking the chorus — without restarting.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>Play quietly at night on a phone without an ad jumping the scroll.</p>
+        </article>
+        <article class="hire-slip" role="listitem">
+          <p class="hire-label">Hire for</p>
+          <p>The singer who owns the guitar wants a singable key — not theoretical spelling.</p>
+        </article>
+        <article class="hire-slip later" role="listitem">
+          <p class="hire-label">Real · not first release</p>
+          <p>Put a class on the same song without photocopying a notebook.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="tech" id="one-feature" aria-labelledby="of-h">
+      <div class="tech-label">
+        <span class="num">03</span>
+        <h2 id="of-h">One Feature Only</h2>
+      </div>
+      <p class="tech-lede">If only one capability ships: the phone play view. Beat the WhatsApp notebook photo — not Ultimate Guitar’s feature matrix.</p>
+      <div class="phone-stage">
+        <figure class="phone" aria-label="Play mode mock on a phone">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <div class="phone-screen">
+            <p class="song-title">ඔබා මා · Obā Mā</p>
+            <p class="artist">Verified · film version · capo 2</p>
+            <div class="play-line current">
+              <span class="ch">G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em</span>
+              <span class="ly">ඔබා මා හදේ…</span>
+            </div>
+            <div class="play-line preview">
+              <span class="ch">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D</span>
+              <span class="ly">next line only as preview</span>
+            </div>
+            <div class="phone-controls" aria-hidden="true">
+              <span>−1</span>
+              <span>Capo</span>
+              <span>+1</span>
+              <span>Aa</span>
+            </div>
+          </div>
+        </figure>
+        <ol class="feature-ladder">
+          <li class="primary">
+            <span class="rank">The one</span>
+            <p>Readable lyrics, chords locked to the right syllable, thumb-reachable transpose.</p>
+          </li>
+          <li>
+            <span class="rank">Second · worth being great at</span>
+            <p>Songs I can play: known chords in, playable songs out.</p>
+          </li>
+          <li>
+            <span class="rank">Third · trust is a feature</span>
+            <p>Verified stamp: which recording, who checked it, when.</p>
+          </li>
+          <li>
+            <span class="rank">Engine first</span>
+            <p>Transposition as a pure function with tests before any interface. Capo = transpose-by-fret with two labels: key that sounds / shapes you play.</p>
+          </li>
+          <li class="out">
+            <span class="rank">Validation cut · excludes</span>
+            <p>AI, community publishing, tuner, metronome, strumming animation, playlists, teacher tools. Accounts wait until a stranger finishes a song without one.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="tech" id="crank" aria-labelledby="crank-h">
+      <div class="tech-label">
+        <span class="num">04</span>
+        <h2 id="crank-h">Crank the Dial to 11</h2>
+      </div>
+      <p class="tech-lede">Play mode is a stage, not a document. Everything else leaves.</p>
+      <div class="stage">
+        <p class="stage-chords" aria-hidden="true">G · Em · C · D</p>
+        <p class="stage-line">Current line — high enough after a glance down</p>
+        <p class="stage-next">Next line only as preview</p>
+        <div class="dial-grid">
+          <div class="dial-chip"><strong>Advance</strong>Huge advance-line zone beats BPM auto-scroll. Auto-scroll optional, set by feel.</div>
+          <div class="dial-chip"><strong>Sections</strong>Verse / chorus / bridge chips matter more than smooth pixel scroll.</div>
+          <div class="dial-chip"><strong>Wake lock</strong>Mandatory. If the browser refuses, say so in one line.</div>
+          <div class="dial-chip"><strong>Font</strong>Size persists. Chord alignment must survive the size change.</div>
+          <div class="dial-chip"><strong>Landscape</strong>Design landscape first — phone on a music stand. Portrait is handheld fallback.</div>
+          <div class="dial-chip"><strong>One hand</strong>Controls in bottom band or edges. Fretting hand does not pinch-zoom.</div>
+          <div class="dial-chip"><strong>Announce</strong>Chord only when it changes. Beat-by-beat fights singing.</div>
+          <div class="dial-chip"><strong>Views</strong>Chord-only for players who know the words. No separate lyric catalog.</div>
+          <div class="dial-chip"><strong>Dark default</strong>Night practice. Gray-on-gray fails under stage light and bedside lamps.</div>
+          <div class="dial-chip"><strong>No interrupt</strong>No ads, upgrades, or rating prompts inside play.</div>
+          <div class="dial-chip"><strong>Offline</strong>The arrangement you opened stays on the device. Dead spots cannot blank the chorus.</div>
+          <div class="dial-chip"><strong>Stand mode</strong>Phone a meter away: enormous type + section advance. Bluetooth pedal — later joke that might be serious.</div>
+          <div class="dial-chip"><strong>Performance</strong>Hide practice chrome. Only songs marked ready — weddings and services.</div>
+          <div class="dial-chip"><strong>Metronome later</strong>Clicks in the ear. Visual metronome fights the reading line.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="tech" id="kill" aria-labelledby="kill-h">
+      <div class="tech-label">
+        <span class="num">05</span>
+        <h2 id="kill-h">Kill the Crown Jewel</h2>
+      </div>
+      <p class="tech-lede">Delete the sacred cow. Watch what survives — and what must never be deleted.</p>
+      <div class="jewels">
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete the giant library</h3>
+            <p>Product becomes a coach for thirty songs. Acquisition harder; learning quality spikes. Depth is the proof. Breadth is a later moat.</p>
+          </div>
+        </article>
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete lyrics</h3>
+            <p>Legal risk drops; singer-guitarists leave. Model lyrics so they can be removed per song without breaking the chord timeline.</p>
+          </div>
+        </article>
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete interactivity</h3>
+            <p>You might still get search traffic, but not a habit. SEO page and play mode are two renderings of one arrangement.</p>
+          </div>
+        </article>
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete accounts</h3>
+            <p>First session still works. Local storage can hold key, capo, and font until accounts exist.</p>
+          </div>
+        </article>
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete AI</h3>
+            <p>Product can still be excellent. AI is off the critical path to validation.</p>
+          </div>
+        </article>
+        <article class="jewel keep">
+          <span class="x" aria-hidden="true">!</span>
+          <div>
+            <h3>Cannot delete: Sinhala &amp; Tamil</h3>
+            <p>Delete them and you become a worse Ultimate Guitar. Local repertoire is the strategy — not a translation layer added later.</p>
+          </div>
+        </article>
+        <article class="jewel keep">
+          <span class="x" aria-hidden="true">!</span>
+          <div>
+            <h3>Cannot delete: transpose</h3>
+            <p>Beginners who cannot sing in the original key churn. Transpose is part of the minimum, not polish.</p>
+          </div>
+        </article>
+        <article class="jewel">
+          <span class="x" aria-hidden="true">✗</span>
+          <div>
+            <h3>Delete chord diagrams (mostly)</h3>
+            <p>Intermediates survive. Beginners stall on the first barre or F. Keep a peek, not a textbook.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="tech" id="reverse" aria-labelledby="rev-h">
+      <div class="tech-label">
+        <span class="num">06</span>
+        <h2 id="rev-h">Reverse Brainstorming</h2>
+      </div>
+      <p class="tech-lede">How the product fails — the kill log that design must prevent.</p>
+      <div class="fail-console" role="table" aria-label="Failure modes">
+        <div class="bar" role="row">Product failure console · do not ship these</div>
+        <div class="fail-row" role="row"><span class="code">FAIL-01</span><span>Chords do not match the version in the room: film, acoustic, live, karaoke.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-02</span><span>One song is one sheet — hits have more than one arrangement people mean by the title.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-03</span><span>Sinhala search misses the Singlish spelling people actually type.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-04</span><span>A beginner song uses barre shapes because the transcriber plays intermediate voicings.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-05</span><span>Scroll speed follows a recorded BPM and the singer breathes late.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-06</span><span>A login wall sits in front of the first chord.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-07</span><span>Lyrics copied at scale; a publisher writes before there are users.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-08</span><span>An AI sheet is public with no human ear on the recording.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-09</span><span>A tuner is promised; iOS Safari makes it feel broken — brand becomes the broken tuner.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-10</span><span>Empty programmatic pages (every chord-name URL) get indexed.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-11</span><span>Ultimate Guitar’s tab / rating / version maze squeezed onto a narrow phone.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-12</span><span>Moderation is English-only; submissions are Sinhala and Tamil.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-13</span><span>Chords stored as display strings — C♯/D♭, slash chords, N.C. cannot round-trip through transpose.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-14</span><span>Capo is a text note; transpose + capo shifts the song twice.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-15</span><span>The paid tier is the one that makes the song readable.</span></div>
+        <div class="fail-row" role="row"><span class="code">FAIL-16</span><span>Comments under a song become arguments about lyrics and politics instead of a wrong chord.</span></div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="tech" id="cross" aria-labelledby="cross-h">
+      <div class="tech-label">
+        <span class="num">07</span>
+        <h2 id="cross-h">Cross-Pollination</h2>
+      </div>
+      <p class="tech-lede">Steal the useful gene. Leave the rest.</p>
+      <div class="grafts">
+        <div class="graft"><span class="source">Karaoke</span><p>Confidence about which line you are on. Do not steal a bouncing ball on every word — bounce the chord change.</p></div>
+        <div class="graft"><span class="source">Language apps</span><p>Meet the chord, the change, the section, then the song. A streak is songs touched this week — not guilt.</p></div>
+        <div class="graft"><span class="source">Cricket score</span><p>Fast on a bad connection, huge type, one job on screen.</p></div>
+        <div class="graft"><span class="source">Recipe sites</span><p>The sheet is above the fold. The story about the song is optional and below.</p></div>
+        <div class="graft"><span class="source">Offline maps</span><p>Download this song, download this set, see the storage it uses.</p></div>
+        <div class="graft"><span class="source">Spaced repetition</span><p>Only for the chord change the player actually misses — not a separate course product.</p></div>
+        <div class="graft"><span class="source">Share links</span><p>Opens play mode already in the agreed key and capo. Band on the same shapes. No account required.</p></div>
+        <div class="graft"><span class="source">Teachers later</span><p>One song link; each student keeps a key. Do not build the class product first.</p></div>
+        <div class="graft"><span class="source">“Nearby”</span><p>Songs in my chord vocabulary. Geography irrelevant. Known shapes are the location.</p></div>
+        <div class="graft"><span class="source">Citations</span><p>Every sheet cites recording, transcriber, verifier, date — like a reference.</p></div>
+        <div class="graft"><span class="source">WhatsApp</span><p>Meet the notebook photo where it lives. Later: share the play link — not a chatbot that ingests audio.</p></div>
+        <div class="graft"><span class="source">Campus / shops</span><p>Zero-budget channel: a request list and a sticker, not ads.</p></div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="tech" id="fusion" aria-labelledby="fusion-h">
+      <div class="tech-label">
+        <span class="num">08</span>
+        <h2 id="fusion-h">Fusion Cuisine</h2>
+      </div>
+      <p class="tech-lede">Local repertoire as written memory — three scripts, one catalog promise.</p>
+      <div class="fusion">
+        <div class="script-ribbon">
+          <div class="glyph" lang="si" aria-hidden="true">සි</div>
+          <div>
+            <h3>Sinhala · Singlish · Unicode</h3>
+            <p>Search accepts Sinhala Unicode and common romanized Singlish; stores a normalized romanization index; displays the native title. Primary title stays in original script.</p>
+          </div>
+        </div>
+        <div class="script-ribbon">
+          <div class="glyph" lang="ta" aria-hidden="true">த</div>
+          <div>
+            <h3>Tamil · Tanglish · Latin</h3>
+            <p>Same promise. Tamil is a first-class catalog — not a tab on a Sinhala site.</p>
+          </div>
+        </div>
+        <div class="script-ribbon">
+          <div class="glyph" aria-hidden="true">En</div>
+          <div>
+            <h3>English aliases · artists · lines</h3>
+            <p>Artists need nicknames and shortened spellings. An English alias is a search key, not a replacement name. Lines can switch language mid-lyric; chord anchors attach to words or grapheme clusters.</p>
+          </div>
+        </div>
+        <ul class="fusion-notes">
+          <li>Many Sinhala songs live as oral memory and online video — the product becomes the written memory.</li>
+          <li>Genre is local-first: film, baila, calypso, pop, choir and worship, campus, oldies, new video hits. Map to global genres later.</li>
+          <li>Worship guitarists are a dense recurring segment — discover service setlists as a job; do not dump a worship catalog until rights are understood.</li>
+          <li>Trending means played here this week from on-site play starts — not a copied global chart.</li>
+          <li>Teach a strum first as spoken down-up syllables, including a Sinhala mnemonic, before any animation.</li>
+          <li>Code-switching and romanized chorus lines need their own alias lines so search finds the phrase people sing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="tech" id="constraint" aria-labelledby="con-h">
+      <div class="tech-label">
+        <span class="num">09</span>
+        <h2 id="con-h">Constraint Mapping</h2>
+      </div>
+      <p class="tech-lede">Hard frets on the neck — rights, tech, and the constraints that become advantages.</p>
+      <div class="fretboard">
+        <p class="fretboard-title">Constraint fretboard</p>
+        <div class="strings" role="table" aria-label="Constraints by string">
+          <div class="string-row" role="row">
+            <div class="string-name">Rights</div>
+            <div class="fret-cell hard">Lyrics = hard copyright; chord names safer but not a free pass when locked to full lyric. Counsel decides. Lyrics removable.</div>
+            <div class="fret-cell hard">Ability to extract ≠ legal permission. Feasibility and permission stay separate.</div>
+            <div class="fret-cell hard">No full-song uploads in MVP. No YouTube ingest — link out. Masters are a rights and security problem.</div>
+            <div class="fret-cell hard">Takedown contact, form, log, fast unpublish before catalog is public. Contributor agreement before public editing.</div>
+          </div>
+          <div class="string-row" role="row">
+            <div class="string-name">Privacy</div>
+            <div class="fret-cell">Practice history stays out of any sale or ad profile.</div>
+            <div class="fret-cell">Analytics can be logged out and query-level.</div>
+            <div class="fret-cell hard">Microphone features on mobile browsers are a swamp — tuner and listen-to-me wait.</div>
+            <div class="fret-cell">Paper escape hatch: export current key for places that ban phones.</div>
+          </div>
+          <div class="string-row" role="row">
+            <div class="string-name">Scripts</div>
+            <div class="fret-cell hard">Sinhala Unicode normalization or titles miss.</div>
+            <div class="fret-cell hard">Tamil normalization is its own work — not a copy of Sinhala rules.</div>
+            <div class="fret-cell dissolve">Two scripts + romanized search = acquisition advantage on queries global sites ignore.</div>
+            <div class="fret-cell">Play payload: compact structured data. Diagrams are shared drawings, not a photo per chord.</div>
+          </div>
+          <div class="string-row" role="row">
+            <div class="string-name">Brand</div>
+            <div class="fret-cell dissolve">Dissolve “match every UG feature.” Real constraint: chord accuracy — checked by a guitarist.</div>
+            <div class="fret-cell"></div>
+            <div class="fret-cell"></div>
+            <div class="fret-cell"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="tech" id="triz" aria-labelledby="triz-h">
+      <div class="tech-label">
+        <span class="num">10</span>
+        <h2 id="triz-h">TRIZ Contradiction</h2>
+      </div>
+      <p class="tech-lede">Both sides true. Resolve with structure, not compromise-by-blur.</p>
+      <div class="triz-list">
+        <article class="contradiction">
+          <div class="pole a"><em>Coverage</em>More songs</div>
+          <div class="pole b"><em>Accuracy</em>Trusted chords</div>
+          <div class="resolve">States: draft → reviewed → verified. Search shows verified by default. Drafts never indexable.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Landing pages</em>SEO surface</div>
+          <div class="pole b"><em>Thin content</em>Quality</div>
+          <div class="resolve">Index song, artist, and a few real hubs (language). Faceted filter URLs are noindex.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Free growth</em>Ads</div>
+          <div class="pole b"><em>Clean play</em>No interrupt</div>
+          <div class="resolve">Ads may sit on browse and search. Play stays clean. Premium later: remove browse ads, offline packs, synced setlists.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Instant transpose</em>Speed</div>
+          <div class="pole b"><em>Ugly chords</em>Correctness</div>
+          <div class="resolve">Store root, quality, extensions, bass. Unparsed annotation left untouched and flagged — never guessed.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Beginners</em>Need shapes</div>
+          <div class="pole b"><em>Players</em>Need words</div>
+          <div class="resolve">Diagram the first time a chord appears in that song, then the symbol only.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Community speed</em></div>
+          <div class="pole b"><em>Moderation cost</em></div>
+          <div class="resolve">A correction is a structured change at a chord anchor — not a replacement essay.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Sri Lanka now</em></div>
+          <div class="pole b"><em>Global later</em></div>
+          <div class="resolve">Locale-neutral data model. Launch content and navigation Sri Lankan. No second codebase.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>Helpful AI</em></div>
+          <div class="pole b"><em>Trust</em></div>
+          <div class="resolve">Transpose, capo, diagrams, key math, voicing class stay deterministic. Models may suggest (labeled) — never silently rewrite a verified sheet.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>SEO many URLs</em></div>
+          <div class="pole b"><em>Quality few</em></div>
+          <div class="resolve">Long-tail capo and easy versions are sections on the song page — not extra URLs.</div>
+        </article>
+        <article class="contradiction">
+          <div class="pole a"><em>No-barre filter</em></div>
+          <div class="pole b"><em>Barre is a voicing</em></div>
+          <div class="resolve">A song is no-barre only if every chord has an open shape in the stated tuning.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="tech" id="utopia" aria-labelledby="uto-h">
+      <div class="tech-label">
+        <span class="num">11</span>
+        <h2 id="uto-h">Utopia vs Dystopia</h2>
+      </div>
+      <p class="tech-lede">Brochure future on the left. Landfill future on the right. The move that survives both.</p>
+      <div class="split-screen">
+        <div class="utopia">
+          <h3>Utopia · the brochure</h3>
+          <ul>
+            <li>Hum a chorus — get a sheet.</li>
+            <li>Personal practice sequence from changes you miss — without ingesting a copyrighted master.</li>
+            <li>Romanization and alias suggestions machine-proposed, human-confirmed (catalog tool, not magic button).</li>
+            <li>Difficulty, similar progressions, barre class computed from structured chords first; call a model only where rules run out.</li>
+            <li>Model output stores provenance: model, version, reviewer, time. Screen says when a human has not checked.</li>
+            <li>Report a wrong chord (or wrong suggestion) in two taps → editorial ticket, not a comment thread.</li>
+          </ul>
+        </div>
+        <div class="dystopia">
+          <h3>Dystopia · the landfill</h3>
+          <ul>
+            <li>Wrong chords outranking the good ones.</li>
+            <li>Leading the brand with AI chord extraction invites a marketing claim and a legal claim.</li>
+            <li>A microphone that judges your playing — different product (pedagogy, latency, rights). Park it.</li>
+            <li>A striped catalog where some songs are chord-only and some are full sheets — users grumble.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="survive">
+        <strong>Survives both futures</strong>
+        Never auto-publishing model output. The dystopia of a striped catalog (chord-only where lyrics uncleared; full sheet where cleared) is still better than a lawsuit — inconsistency is an adult policy.
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="tech" id="backcast" aria-labelledby="bc-h">
+      <div class="tech-label">
+        <span class="num">12</span>
+        <h2 id="bc-h">Backcasting</h2>
+      </div>
+      <p class="tech-lede">Start from the dictionary future. Walk back to the first thirty songs.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <p class="when">Three years out</p>
+          <p>A guitarist in Sri Lanka opens this for the song the way they open a dictionary. Sheets match the recording. Play mode survives a gig. Corrections stick.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">Year one</p>
+          <p>A few hundred verified songs people actually request + play mode, transpose, capo, three-script search, artist pages.</p>
+        </div>
+        <div class="tl-item now">
+          <p class="when">First move · now</p>
+          <p>Thirty songs chosen by asking guitarists what they get asked to play — transcribed carefully, delightful on a phone. Each song page targets the query people type: song name + chords, in their script.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">Why they return</p>
+          <p>Key and capo still there. The change they failed is waiting. Saturday’s set is one tap away.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">The moat</p>
+          <p>Verified local corpus, alignment quality, alias search — not a tuner.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">Global later</p>
+          <p>Reuse play mode; add a corpus where diaspora demand exists. Cloning English pop is a red ocean.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">Money · later</p>
+          <p>Do not paywall the sheet. Free = full play of verified catalog. Payment = offline, quiet browsing, setlists across devices. Gear affiliates and teacher directory wait until trust exists — disclosed, optional, never in play view.</p>
+        </div>
+        <div class="tl-item">
+          <p class="when">Smallest validation</p>
+          <p>Thirty songs, play, transpose, capo, search — watched with twenty guitarists on their own phones. Success: finishing a song and opening a second unprompted. Willingness to pay is open until the play habit exists.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="tech" id="empathy" aria-labelledby="emp-h">
+      <div class="tech-label">
+        <span class="num">13</span>
+        <h2 id="emp-h">Empathy Map</h2>
+      </div>
+      <p class="tech-lede">Five people in the room. One shared feeling at the gig.</p>
+      <div class="people">
+        <article class="person">
+          <p class="name">Nethmi</p>
+          <p class="role">19 · Em C G D · Friday song</p>
+          <p>Needs one Sinhala song for Friday. No theory vocabulary. If the page says “tonic,” she leaves.</p>
+        </article>
+        <article class="person">
+          <p class="name">Ruwan</p>
+          <p class="role">34 · home &amp; church</p>
+          <p>Lives in saved keys and setlists. Will pay to kill ads and keep the set offline.</p>
+        </article>
+        <article class="person">
+          <p class="name">Dilani</p>
+          <p class="role">Teacher · ten students</p>
+          <p>Same song in different keys plus a sign they practiced. She is a second product.</p>
+        </article>
+        <article class="person">
+          <p class="name">Akeel</p>
+          <p class="role">Tamil repertoire</p>
+          <p>Finds Sinhala-first lyric dumps or English tabs. Parity for Tamil is a positioning promise — not a backlog apology.</p>
+        </article>
+        <article class="person">
+          <p class="name">Kasun</p>
+          <p class="role">Plays well · studio key</p>
+          <p>Wants the studio key and another voicing. Will fix a wrong chord if the fix is two taps and a named recording.</p>
+        </article>
+        <article class="person wide">
+          <p class="name">What they all feel</p>
+          <p class="role">At the gig</p>
+          <p>Exposure. The interface should lower heart rate: big type, the next chord, no surprise layout shift. What they say is “send me the chords.” What they do is screenshot. The product wins when the screenshot is unnecessary. A beginner thinks they are bad when the sheet is wrong — accuracy is emotional, not only musical.</p>
+          <p class="felt">Lower the heart rate. Keep the place. Make the screenshot unnecessary.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="tech" id="morph" aria-labelledby="morph-h">
+      <div class="tech-label">
+        <span class="num">14</span>
+        <h2 id="morph-h">Morphological Analysis</h2>
+      </div>
+      <p class="tech-lede">The shape of the product: identity, lines, versions, engines, surfaces.</p>
+      <div class="morph">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Choice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dim">Home</td>
+              <td>Continue, short local trending, search — not a magazine.</td>
+            </tr>
+            <tr>
+              <td class="dim">Primary nav</td>
+              <td>Search, song, play, practice, your library. Artist / genre / language are doors for SEO and browsing — not main tabs.</td>
+            </tr>
+            <tr>
+              <td class="dim">Identity</td>
+              <td>Song (aliases, languages) → Recording/Version (key, tempo, suggested capo, source, verifier) → Arrangement revision (sections, lines).</td>
+            </tr>
+            <tr>
+              <td class="dim">Line model</td>
+              <td>Lyric tokens + chord events at a token index. Chord event structured; display text derived.</td>
+            </tr>
+            <tr>
+              <td class="dim">Versions</td>
+              <td>First-class. One canonical song URL with a switcher. Alternates do not compete as separate indexable duplicates.</td>
+            </tr>
+            <tr>
+              <td class="dim">Diagrams</td>
+              <td>Keyed by chord, tuning, voicing — not baked into song text.</td>
+            </tr>
+            <tr>
+              <td class="dim">Transpose</td>
+              <td>Semitones to pitch classes; respell toward target key; keep slash bass; leave N.C. and percussion alone. User transpose + capo compose — system solves shapes.</td>
+            </tr>
+            <tr>
+              <td class="dim">Search</td>
+              <td>Analyzers for Sinhala, Tamil, English + romanization field. Chord search structured: contains, count, no barre, tuning.</td>
+            </tr>
+            <tr>
+              <td class="dim">Revisions</td>
+              <td>Immutable and cacheable. Play payload = that revision. Edit publishes new. Old share links keep revision or follow latest — chosen on purpose.</td>
+            </tr>
+            <tr>
+              <td class="dim">Render</td>
+              <td>Server-render the song so the first verse is visible on a slow phone and to a crawler. Play hydrates the same arrangement. No canvas-drawn sheet.</td>
+            </tr>
+            <tr>
+              <td class="dim">Client / data</td>
+              <td>One web client as installable site. Shared pure module for transpose/capo. Single relational DB. No microservices. Object storage not for audio masters.</td>
+            </tr>
+            <tr>
+              <td class="dim">API shape</td>
+              <td>Public reads: song, search, artist. Writes at first: error reports. Admin: verify, unpublish, revert. Auth can wait.</td>
+            </tr>
+            <tr>
+              <td class="dim">Type</td>
+              <td>System fonts covering Sinhala and Tamil (or hosted subset). A Latin-only web font that delays the lyric is a defect.</td>
+            </tr>
+            <tr>
+              <td class="dim">A11y / measure</td>
+              <td>Reduced motion = no auto-scroll. Chord identity not color alone. Desktop key paths for search and transpose. Measure: open, play start/complete, transpose, capo, error report, zero-result queries (editorial backlog). Do not record microphone audio.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="tech" id="provo" aria-labelledby="provo-h">
+      <div class="tech-label">
+        <span class="num">15</span>
+        <h2 id="provo-h">Provocation Technique</h2>
+      </div>
+      <p class="tech-lede">Deliberately absurd posters — then keep what is useful.</p>
+      <div class="provos">
+        <article class="provo">
+          <p class="ask">The homepage is only the song you are learning.</p>
+          <p class="keep">Retention likes it. Discovery and SEO still need other doors. <em>Split the surfaces.</em></p>
+        </article>
+        <article class="provo">
+          <p class="ask">License lyrics for a top local hundred — make that the press story.</p>
+          <p class="keep">Slow, expensive, and the real moat if a publisher will talk.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">Ship chord-only for uncleared international covers popular locally; full sheets for cleared or original local work.</p>
+          <p class="keep">Adult policy — even if the catalog looks striped.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">User sings one comfort note once; song offers the nearest singable key.</p>
+          <p class="keep">That audio is theirs, not a master. Still post-validation.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">Home-screen drill is the chord change you fail most often.</p>
+          <p class="keep">Practice comes to you.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">Section carries a text strum pattern such as “down down-up.”</p>
+          <p class="keep"><em>Useful and easy enough to keep.</em> Animation is a toy and waits.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">Standard tuning only — the engine must sound for launch.</p>
+          <p class="keep">Other tunings: label + warning, or song stays unpublished. No custom tuning studio.</p>
+        </article>
+        <article class="provo">
+          <p class="ask">Personal notes, cross-device history, reputation need accounts.</p>
+          <p class="keep">Do not fake them with device-only data and call it a profile.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="tech" id="worst" aria-labelledby="worst-h">
+      <div class="tech-label">
+        <span class="num">16</span>
+        <h2 id="worst-h">Worst Possible Idea</h2>
+      </div>
+      <p class="tech-lede">Invent the disaster launch — then invert it into the minimum and the roadmap.</p>
+      <div class="worst-grid">
+        <article class="inversion">
+          <div class="worst">A scraper, an AI publisher, a tuner, and a paywall on the chorus.</div>
+          <div class="inverse">A human-checked phone sheet, free to play, with tools postponed.</div>
+        </article>
+        <article class="inversion">
+          <div class="worst">Differentiation: “we have AI.”</div>
+          <div class="inverse">A phone playbook for Sri Lankan songs, checked by guitarists, in the script you search and the key you sing.</div>
+        </article>
+        <article class="inversion">
+          <div class="worst">Accuracy process: whoever typed last.</div>
+          <div class="inverse">Two guitarists against a named recording before the sheet is verified.</div>
+        </article>
+        <article class="inversion">
+          <div class="worst">Moderation: open wiki on day one.</div>
+          <div class="inverse">Small editor group, version history, and revert. Reputation after editors exist.</div>
+        </article>
+        <article class="inversion">
+          <div class="worst">SEO: thousands of chord / key / capo combination URLs.</div>
+          <div class="inverse">Real songs, real artists, hubs a human would browse.</div>
+        </article>
+        <article class="inversion">
+          <div class="worst">Monetization: premium chords.</div>
+          <div class="inverse">Correctness is not a luxury feature.</div>
+        </article>
+      </div>
+
+      <div class="roadmap">
+        <div class="road-band mvp">
+          <h3>Keep for the minimum</h3>
+          <p>Verified songs; search by title, artist, lyric fragment, and language; song page; play mode with large type, wake lock, section jump, and manual advance; transpose; capo with sounding versus played; diagram peek; dark play; font size; report-a-wrong-chord; artist pages.</p>
+        </div>
+        <div class="road-band next">
+          <h3>Next after that minimum</h3>
+          <p>Accounts, favorites, setlists, remembered key and capo, a practice path on one song, chord-vocabulary filter, better romanization, trending from real plays, cache of recent songs.</p>
+        </div>
+        <div class="road-band later">
+          <h3>Later still</h3>
+          <p>Community diffs, editor tools at scale, premium offline, push for Tamil corpus parity, classroom or worship only if rights are clear, deterministic similar songs, then tuner and metronome.</p>
+        </div>
+        <div class="road-band exp">
+          <h3>Experimental only</h3>
+          <p>Practice plan from failed changes, labeled alternate voicings, audio extraction after counsel.</p>
+        </div>
+        <div class="road-band postpone">
+          <h3>Postpone · impressive, low-value early</h3>
+          <p>Strumming animation, custom tunings, audio extraction, community reputation, teacher dashboards, social feeds, and comments.</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="buried" aria-label="Odd and buried ideas">
+      <h3>Odd &amp; buried · keep on the stand</h3>
+      <ul>
+        <li>Bluetooth pedal as a later joke that might be serious.</li>
+        <li>Stand mode: phone a meter away, enormous type.</li>
+        <li>Performance mode for weddings and services — different anxiety than practice.</li>
+        <li>Sinhala mnemonic for spoken strum syllables before any animation.</li>
+        <li>Paper export for venues that ban phones.</li>
+        <li>Tuition-shop sticker + request list as zero-budget acquisition.</li>
+        <li>Share link locks the band into agreed key and capo with no account.</li>
+        <li>Sing one comfort note → nearest singable key (post-validation).</li>
+        <li>Home drill = the change you fail most often.</li>
+        <li>Comments under songs become politics — design corrections as editorial tickets instead.</li>
+      </ul>
+    </aside>
+
+    <!-- SYNTHESIS -->
+    <section class="climax" id="synthesis" aria-labelledby="syn-h">
+      <p class="climax-label">Synthesis · the last chorus</p>
+      <h2 id="syn-h">What this session decided</h2>
+
+      <div class="problem-box">
+        <p class="kicker">The single most important problem</p>
+        <p>I cannot get a trustworthy, readable, singable chord sheet for the song in front of me, in the script I search with, and keep my place while I play.</p>
+      </div>
+
+      <p class="diff-sentence">
+        Chosen differentiation: verified Sri Lankan repertoire, phone play mode that respects a guitar in your hands, alias and script search, and honest versions. AI is not the wedge.
+      </p>
+
+      <div class="mvp-gate">
+        <div class="gate-in">
+          <h3>Chosen MVP · in</h3>
+          <ul>
+            <li>About thirty guitarist-requested songs</li>
+            <li>Logged-out search and song page</li>
+            <li>Play mode</li>
+            <li>Deterministic transpose</li>
+            <li>Deterministic capo</li>
+            <li>Diagram peek</li>
+            <li>Error report</li>
+            <li>Artist pages</li>
+          </ul>
+        </div>
+        <div class="gate-out">
+          <h3>Explicitly out</h3>
+          <ul>
+            <li>Accounts</li>
+            <li>AI</li>
+            <li>User-generated sheets</li>
+            <li>Audio upload</li>
+            <li>YouTube ingest</li>
+            <li>Tuner</li>
+            <li>Metronome</li>
+            <li>Strumming animation</li>
+            <li>Ads inside play</li>
+            <li>Paywalled chords</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="insight-rows">
+        <div class="insight">
+          <span class="ik">Deterministic forever</span>
+          Chord structure, transpose, capo composition, spelling, diagrams, barre and easy-voicing class, progression similarity. Models may only suggest, must be labeled, and must not auto-publish.
+        </div>
+        <div class="insight">
+          <span class="ik">Legal direction</span>
+          Counsel before lyrics go wide; lyrics removable per song; takedown path live at launch; no master uploads; no YouTube ripping; contributor terms before any public editing; feasibility is not permission.
+        </div>
+        <div class="insight">
+          <span class="ik">SEO direction</span>
+          Index songs and artists and a few human hubs; noindex facets and drafts; long-tail lives on the song page; zero-result searches become the transcription queue. Largest useful catalog, not largest page count.
+        </div>
+        <div class="insight">
+          <span class="ik">Money direction</span>
+          Free includes full play of verified songs. Ads, if any, only on browse and never shifting play mode. Later payment is offline packs, ad-free browse, and synced setlists. Teachers and affiliates wait.
+        </div>
+        <div class="insight">
+          <span class="ik">Retention</span>
+          Comes from remembered key and capo, setlists, the failed chord change, and a next song that uses shapes you have. Catalog tourism does not.
+        </div>
+        <div class="insight">
+          <span class="ik">Cold start</span>
+          An editorial sprint. First build: play view and transpose engine, then the thirty songs. Architecture: server-rendered site + relational store + pure chord module.
+        </div>
+        <div class="insight">
+          <span class="ik">Global later</span>
+          Same product and a new corpus driven by diaspora demand — not a clone of English tab sites.
+        </div>
+      </div>
+
+      <div class="next-step">
+        <h3>Next BMAD artifact</h3>
+        <p>A product brief that freezes this MVP, the exclude list, the chord data model, and the legal gates — then a PRD. Do not start production code from the brainstorm alone. Recommend <strong style="color:var(--lamp);font-weight:600">bmad-product-brief</strong> next, before bmad-prd and any build skill.</p>
+      </div>
+    </section>
+
+    <footer class="colophon">
+      <p>SongChords discovery · brainstorm-songchords-discovery-2026-09-27</p>
+      <p>Source: session memlog only · English · self-contained HTML · no external assets</p>
+      <p>Dark lamp · chord dots · fret wires · phone on the stand</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      // Soft lamp pulse on current play line — skipped if reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var line = document.querySelector('.play-line.current .ly');
+      if (!line) return;
+      var t = 0;
+      function pulse() {
+        t += 0.04;
+        var a = 0.08 + Math.sin(t) * 0.06;
+        line.style.textShadow = '0 0 ' + (10 + Math.sin(t) * 6) + 'px rgba(255,255,255,' + a + ')';
+        requestAnimationFrame(pulse);
+      }
+      requestAnimationFrame(pulse);
+    })();
+  </script>
+</body>
+</html>
